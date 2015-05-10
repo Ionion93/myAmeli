@@ -12,11 +12,11 @@ Filtre rapide
 <!--
 Liste des RDV
 -->
-<ul class="list-rdv" data-ng-repeat="(date, value) in items | filter : {etat:query, archive:false} | groupBy :'dateJour' | orderBy:'dateJour'">
+<ul class="list-rdv" data-ng-repeat="(date, value) in items | filter : {etat:query, archive:false} | groupBy :'dateJour' | orderBy:'dateJour':true">
 
     <li class="date">{{date|date:'dd/MM/yyyy'}}</li>
 
-    <li data-ng-repeat="item in value">
+    <li data-ng-repeat="item in value | orderBy:'date'">
 
         <div class="avatar" style="background-image:url({{item.beneficiaire.avatar}})"></div>
 

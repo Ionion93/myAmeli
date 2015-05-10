@@ -1,0 +1,20 @@
+<!--
+Affiche la liste des bénéficiaires du compte assuré y compris l'assuré
+-->
+<ul class="list-beneficiaires">
+    <li data-ng-repeat="item in items">
+
+        <div data-ng-click="changeAvatar($index)" class="avatar" style="background-image:url({{item.avatar}})">
+
+        </div>
+
+        <div class="header">
+            <h4 class="titre">{{item.prenom}} {{item.nom}}</h4>
+        </div>
+
+        <div class="content">
+            <div class="date"><em>Né(e) le :</em> {{item.dateNaissance|date:'dd/MM/yyyy'}}</div>
+            <div class="qualite"><em>Qualité :</em> {{item.qualite}}</div>
+        </div>
+    </li>
+</ul>

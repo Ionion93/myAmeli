@@ -785,7 +785,7 @@ textarea:focus {
 .settings {
   background-color: white;
   padding: 0;
-  margin-top: -10px;
+  margin-top: -12px;
 }
 .settings li {
   border-bottom: solid 1px whitesmoke;
@@ -819,6 +819,62 @@ textarea:focus {
 .settings li label input {
   width: auto;
   float: right;
+}
+/* list-beneficiaires */
+.list-beneficiaires {
+  margin: 0;
+  padding: 0;
+}
+.list-beneficiaires li {
+  width: 98%;
+  border: solid 1px #dcdcdc;
+  background-color: #fff;
+  margin: auto;
+  margin-bottom: 15px;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+.list-beneficiaires li:after {
+  display: block;
+  float: none;
+  clear: both;
+  height: 0;
+  content: "";
+  visibility: hidden;
+}
+.list-beneficiaires li .avatar {
+  float: left;
+  margin: 0 auto;
+  margin-right: 5%;
+  height: 80px;
+  width: 80px;
+  background-color: #dcdcdc;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+  border-radius: 70px;
+  -webkit-border-radius: 70px;
+  -moz-border-radius: 70px;
+}
+.list-beneficiaires li .header {
+  margin: 0;
+  padding-bottom: 10px;
+}
+.list-beneficiaires li .header .titre {
+  margin: 0;
+  color: deeppink;
+}
+.list-beneficiaires li .content {
+  margin: 0;
+  padding: 0;
+}
+.list-beneficiaires li .content .date,
+.list-beneficiaires li .content .qualite {
+  color: #0099cc;
+  margin-bottom: 10px;
 }
 /* Tutoriel */
 .tutoriel {
@@ -1026,13 +1082,13 @@ textarea:focus {
   color: #ffc04d;
 }
 .popup.success {
-  border-color: #009a00;
+  border-color: #a4d247;
 }
 .popup.success .header {
-  background-color: #009a00;
+  background-color: #a4d247;
 }
 .popup.success .footer .btn {
-  color: #009a00;
+  color: #a4d247;
 }
 /* Boutons */
 .btn,

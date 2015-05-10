@@ -17,7 +17,7 @@ Controllers.controller('RdvListCtrl', ['$scope', '$window', '$log', 'Data',
         /*
          * Si c'est la première visite on redirige vers le tutoriel
          */
-        if(Data.isFirstVisit() === true ){
+        if(Data.isFirstVisit() === true){
 
             $window.location.hash = '#/tutoriel';
 
@@ -27,9 +27,7 @@ Controllers.controller('RdvListCtrl', ['$scope', '$window', '$log', 'Data',
         /*
          * @items : objet qui contient tous les évènements récupérés depuis le service Data
          */
-        $scope.items = Data.getRdvList({
-            forceUpdate : false
-        });
+        $scope.items = Data.getRdvList();
 
         /*
          * @menus : menu qui permet de filtrer rapidement les évènements.

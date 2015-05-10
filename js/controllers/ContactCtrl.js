@@ -1,21 +1,45 @@
 /*
  * ContactCtrl : Page de contact
  */
-Controllers.controller('ContactCtrl', ['$scope', '$log', '$window', '$routeParams', '$filter', 'Data',
-    function ($scope, $log, $window, $routeParams, $filter, Data){
+Controllers.controller('ContactCtrl', ['$scope', '$log', '$window', '$filter', 'Data',
+    function ($scope, $log, $window, $filter, Data){
 
         /*
          * Récupère le détail de l'évènement depuis le service Data
          * et charge le scope
          */
-        $scope.item = Data.getRdvDetail([{
-                forceUpdate : false
-            }]);
+        $scope.item = Data.getRdvDetail();
 
         /*
-         * Récupère le nir depuis le service Data
+         * Cet objet permet de remplir le tableau des références qui seront
+         * jointes au message
          */
-        $scope.item.nir = Data.getUser();
+        $scope.item.references = [
+            {
+                libelle : "Mon numéro",
+                value : Data.getUser()
+            },
+            {
+                libelle : "Bénéficiaire",
+                value : $scope.item.beneficiaire.prenom + ' ' + $scope.item.beneficiaire.nom
+            },
+            {
+                libelle : "Date de naissance",
+                value : $filter('date')($scope.item.beneficiaire.dateNaissance, 'dd/MM/yyyy')
+            },
+            {
+                libelle : "N° du PS",
+                value : $scope.item.numero
+            },
+            {
+                libelle : "Date de la prestation",
+                value : $filter('date')($scope.item.date, "dd/MM/yyyy")
+            },
+            {
+                libelle : "Montant payé",
+                value : $scope.item.montanPaye
+            }
+        ];
 
         /*
          * submit() : lors de l'envoi du formulaire
@@ -48,7 +72,7 @@ Controllers.controller('ContactCtrl', ['$scope', '$log', '$window', '$routeParam
                         "action" : "confirm()"
                     },
                     "cancel" : {
-                        "titre" : "Annuler",
+                        "titre" : "Fermer",
                         "action" : "cancel()"
                     }
                 }
@@ -72,35 +96,6 @@ Controllers.controller('ContactCtrl', ['$scope', '$log', '$window', '$routeParam
 
         };
 
-        /*
-         * Cet objet permet de remplir le tableau des références qui seront jointes au message
-         */
-        $scope.references = [
-            {
-                libelle : "Mon numéro",
-                value : $scope.item.nir
-            },
-            {
-                libelle : "Bénéficiaire",
-                value : $scope.item.beneficiaire.prenom + ' ' + $scope.item.beneficiaire.nom
-            },
-            {
-                libelle : "Date de naissance",
-                value : $filter('date')($scope.item.beneficiaire.dateNaissance, 'dd/MM/yyyy')
-            },
-            {
-                libelle : "N° du PS",
-                value : $scope.item.numero
-            },
-            {
-                libelle : "Date de la prestation",
-                value : $filter('date')($scope.item.date, "dd/MM/yyyy")
-            },
-            {
-                libelle : "Montant payé",
-                value : $scope.item.montant | 50
-            }
-        ];
     }]);
 
 

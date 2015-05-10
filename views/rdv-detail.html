@@ -32,11 +32,9 @@
         </div>
 
         <div data-ng-if="item.date + item.delaiRemboursement < dateLimite && item.etat === false" class="contact">
-
             <a data-ng-click="showContact()" href="">
                 <img data-ng-src="img/help-white.svg">
             </a>
-
         </div>
     </div>
 
@@ -66,7 +64,7 @@
 
         <button class="btn warning" data-ng-click="duplicateEvenement()">
 
-            <embed src="img/add.svg" type="image/svg+xml" id="btn-1" onload="svgFill(this.id, 'Core', 'green')" class="icon" />
+            <embed src="img/add.svg" type="image/svg+xml" id="btn-1" onload="svgFill(this.id, 'Core', 'yellowgreen')" class="icon" />
         </button>
 
         <button class="btn success" data-ng-click="archiveEvenement()">

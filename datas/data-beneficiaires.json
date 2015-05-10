@@ -1,0 +1,38 @@
+[
+    {
+        "id": 0,
+        "nom": "Morales",
+        "prenom": "Massey",
+        "avatar": "img/avatars/homme-1.png",
+        "qualite": "A",
+        "dateNaissance": 1430139379232,
+        "rang": 1
+    },
+    {
+        "id": 1,
+        "nom": "Morales",
+        "prenom": "Mario",
+        "avatar": "img/avatars/femme-1.png",
+        "qualite": "C",
+        "dateNaissance": 1430139379232,
+        "rang": 1
+    },
+    {
+        "id": 2,
+        "nom": "Morales",
+        "prenom": "Kevin",
+        "avatar": "img/avatars/garcon-2.png",
+        "qualite": "E",
+        "dateNaissance": 1430139379232,
+        "rang": 1
+    },
+    {
+        "id": 3,
+        "nom": "Morales",
+        "prenom": "Lisa",
+        "avatar": "img/avatars/femme-2.png",
+        "qualite": "E",
+        "dateNaissance": 1430139379232,
+        "rang": 1
+    }
+]

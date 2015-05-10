@@ -56,6 +56,10 @@ app.config(['$routeProvider', function ($routeProvider){
                 templateUrl : 'views/settings.html',
                 controller : 'SettingsCtrl'
             }).
+            when('/account/', {
+                templateUrl : 'views/account.html',
+                controller : 'AccountCtrl'
+            }).
             when('/contact/:id', {
                 templateUrl : 'views/contact.html',
                 controller : 'ContactCtrl'

@@ -87,7 +87,7 @@ class Rdv{
                 /*
                   Pour test
                  */
-                $fopen = fopen('../datas/data.json' , 'r');
+                $fopen = fopen('./datas/data.json' , 'r');
 
                 $fread = fread($fopen , '4096');
 

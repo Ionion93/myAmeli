@@ -8,9 +8,7 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
          * Récupère le détail de l'évènement depuis le service Data
          * et charge le scope
          */
-        $scope.item = Data.getRdvDetail({
-                forceUpdate : false
-            });
+        $scope.item = Data.getRdvDetail();
 
         /*
          * Contrôle si le délai prévisionnel de remboursement est dépassé
@@ -24,7 +22,7 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
             /*
              * Popup de confirmation
              */
-            $scope.popUrl = 'views/popups/show-contact.html';
+            $scope.popUrl = 'views/popups/rdv-show-contact.html';
 
             /*
              * Personnalisation de la popup
@@ -86,7 +84,7 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
             /*
              * Popup de confirmation
              */
-            $scope.popUrl = 'views/popups/change-date.html';
+            $scope.popUrl = 'views/popups/rdv-change-date.html';
 
             /*
              * Personnalisation de la popup

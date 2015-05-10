@@ -1,37 +1,61 @@
 /*
  * Data : ce service gèrent les requêtes REST
  */
-Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '$log', 'localStorageService', 'Notification',
-    function ($resource, $filter, $routeParams, $interval, $log, localStorageService, Notification){
+Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'localStorageService', 'Notification',
+    function ($resource, $filter, $routeParams, $log, localStorageService, Notification){
 
         /*
-         * Test pour résoudre le problème des navigateurs non compatibles avec localStorage
-         * @DATA : stocke les données des RDV
-         * @DATA_DATE : date de dernière mise à jour des données
+         * @dateExpiration : délai d'expiration des données
+         * + 10 min
          */
-        var DATA = [],
-            DATA_DATE = null;
+        var dateExpiration = new Date().getTime() - 1000 * 60 * 10;
+        //var dateExpiration = new Date().getTime() + 10;
+
+        /*
+         * @defaultDelaiRemboursement : délai de remboursement par défaut
+         * + 5 jours
+         */
+        var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 5;
+
+        /*
+         * @defaultMontantPaye : montant réglé au PS par défaut
+         */
+        var defaultMontantPaye = 50;
+
+        /*
+         * @urlDataRdv : URL des données RDV
+         */
+        var urlDataRdv = './datas/data-rdv.json';
+
+        /*
+         * @urlDataBeneficiaires : URL des données bénéficiaires
+         */
+        var urlDataBeneficiaires = './datas/data-beneficiaires.json';
 
         var request = {
             /*
              * Vérifie si les données sont dans localStorage et sont à jour
              */
-            isData : function (){
+            isDataRdv : function (){
 
                 var status = false;
 
                 if(localStorageService.isSupported){
+                    /*
+                     * LocalStorage est supporté
+                     */
 
-                    if(localStorageService.get("data-rdv") !== null && localStorageService.get("data-rdv-date") !== null){
-
+                    if(localStorageService.get("data-rdv") !== null
+                        && localStorageService.get("data-rdv-date") !== null){
+                        /*
+                         * Les données sont présentes dans localStorage
+                         */
                         status = true;
 
-                        /*
-                         * Vérifie si les données ne sont pas périmées
-                         * + 5 min
-                         */
-                        if(localStorageService.get("data-rdv-date") < (new Date().getTime() - (1000 * 30))){
-
+                        if(localStorageService.get("data-rdv-date") < dateExpiration){
+                            /*
+                             * Les données ne sont pas à jour
+                             */
                             status = false;
                         }
                     }
@@ -41,42 +65,33 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
             },
             /*
              * Liste tous les RDV de l'assuré et de ses bénéficiaires
-             *
-             * @params : {
-             *  forceUpdate : force la mise à jour depuis le serveur,
-             *  user : NIR de l'utilisateur
-             * }
              */
             getRdvList : function (params){
 
                 /*
                  * Données locales
-                 *
-                 * Charge les données depuis localStorage si elles sont présentes et si elles sont à jour
+                 * Si les données sont présentes et à jours on les charge depuis localStorage
+                 * Sinon on les charge depuis le serveur
                  */
-                if(request.isData() === true && params.forceUpdate === false){
+                if(request.isDataRdv() === true){
 
-                    $log.info('Données chargées depuis localStorage. params.forceUpdate = ', params.forceUpdate);
+                    $log.info('Données chargées depuis localStorage');
 
                     return localStorageService.get("data-rdv");
                 }
 
-                $log.info('Données chargées depuis le serveur. params.forceUpdate = ', params.forceUpdate);
-
                 /*
                  * Données distantes
-                 *
-                 * A FAIRE : URL de l'API distante
                  */
-                var urlData = './datas/data-rdv.json';
-
-                var resource = $resource(urlData, {}, {
+                var resource = $resource(urlDataRdv, {}, {
                     query : {
                         method : 'GET',
                         params : {user : request.getUser()},
                         isArray : true,
                         responseType : 'json',
                         transformResponse : function (data){
+
+                            $log.info('Données chargées depuis le serveur');
 
                             /*
                              * @dateLastData : date des dernières données dans localStorage
@@ -91,37 +106,39 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
                             angular.forEach(data, function (item){
 
                                 /*
-                                 * @dateJour : date sans l'heure pour le regroupement par dates
-                                 */
-                                var date = $filter('date')(item.date, "dd/MM/yyyy").split('/');
-
-                                /*
-                                 * Convertit la date en timestamp
-                                 */
-                                var timestamp = new Date(date[1] + '/' + date[0] + '/' + date[2]).getTime();
-
-                                /*
-                                 * Ajoute l'élément dateJour à l'objet
-                                 */
-                                item.dateJour = timestamp;
-
-                                /*
                                  * A FAIRE :
-                                 * Ajoute le délai de remboursement pour ce type de prestation
+                                 * Pour les tests : génère une date aléatoire dans les 10 derniers jours
+                                 * Si le remboursement à eu lieu on enlève 5 jours à la date du RDV
+                                 * Et on compte 5 jours de plus pour la date de remboursement
                                  */
-                                if(item.etat === false){
+                                var nbRandom = Math.ceil(Math.random() * (1000 * 60 * 60 * 24 * 10));
 
-                                    item.date = new Date().getTime();
+                                item.date = new Date().getTime() - nbRandom;
+
+                                if(item.etat === true){
+
+                                    item.date = item.date - (1000 * 60 * 60 * 24 * 5);
+
+                                    item.remboursement.date = item.date + (1000 * 60 * 60 * 24 * 5);
                                 }
 
                                 /*
-                                 * Delai de remboursement sous forme de timestamp
-                                 * 5 jours
+                                 * @dateJour : timestamp de la date sans l'heure pour le regroupement
                                  */
-                                item.delaiRemboursement = 5 * 24 * 60 * 60 * 1000;
+                                item.dateJour = new Date($filter("date")(item.date, "MM/dd/yyyy")).getTime();
 
                                 /*
-                                 * Ajoute l'item dans le tableau des RDV
+                                 * Delai de remboursement par défaut
+                                 */
+                                item.delaiRemboursement = defaultDelaiRemboursement;
+
+                                /*
+                                 * Montant payé par défaut
+                                 */
+                                item["montantPaye"] = defaultMontantPaye;
+
+                                /*
+                                 * Ajoute l'élément dans l'objet
                                  */
                                 arrItems.push(item);
 
@@ -155,13 +172,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
                             var dateNow = new Date().getTime();
 
                             /*
-                             * On stocke les données dans DATA et DATA_DATE
-                             */
-                            DATA = arrItems;
-
-                            DATA_DATE = dateNow;
-
-                            /*
                              *  Si localStorage est supporté on l'utilise
                              */
                             if(localStorageService.isSupported){
@@ -178,7 +188,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
                             }
 
                             /*
-                             * On renvoie l'objet
+                             * On retourne l'objet
                              */
                             return arrItems;
                         }
@@ -194,15 +204,13 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
              */
             getRdvDetail : function (params){
 
-                $log.warn("getRdvDetail() params.forceUpdate : ", params.forceUpdate);
-
                 /*
                  * @data : tous les RDV
                  * @result : détail d'un RDV
                  */
                 var data, result = null;
 
-                data = request.isData() === true ? localStorageService.get("data-rdv") : request.getRdvList(params);
+                data = request.getRdvList();
 
                 /*
                  * On parcoure l'objet à la recherche du RDV
@@ -222,32 +230,27 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
              */
             deleteRdv : function (){
 
-                var data = request.isData() === true ? localStorageService.get("data-rdv") : request.getRdvList();
+                var data = request.getRdvList();
 
                 /*
                  * Nouvel objet qui contient les RDV
                  */
-                var arrData = [];
+                var arrItems = [];
 
                 angular.forEach(data, function (item){
 
                     if(item.id !== parseInt($routeParams.id, 0)){
 
-                        arrData.push(item);
+                        arrItems.push(item);
                     }
                 });
-
-                /*
-                 * Mise à jour dans DATA
-                 */
-                DATA = arrData;
 
                 /*
                  * Mise à jour des donnés dans localStorage
                  */
                 if(localStorageService.isSupported){
 
-                    localStorageService.set("data-rdv", arrData);
+                    localStorageService.set("data-rdv", arrItems);
                 }
             },
             /*
@@ -255,12 +258,12 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
              */
             updateRdv : function (params){
 
-                var data = request.isData() === true ? localStorageService.get("data-rdv") : request.getRdvList();
+                var data = request.getRdvList();
 
                 /*
                  * Nouvel objet qui contient les RDV
                  */
-                var arrData = [];
+                var arrItems = [];
 
                 angular.forEach(data, function (item){
 
@@ -275,28 +278,42 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
                         });
                     }
 
-                    arrData.push(item);
+                    arrItems.push(item);
                 });
-
-                /*
-                 * Mise à jour dans DATA
-                 */
-                DATA = arrData;
 
                 /*
                  * Mise à jour des donnés dans localStorage
                  */
                 if(localStorageService.isSupported){
 
-                    localStorageService.set("data-rdv", arrData);
+                    localStorageService.set("data-rdv", arrItems);
                 }
             },
             /*
-             * Vérfie le login et mot de passe
+             * Liste tous les bénéficiaires
+             */
+            getBeneficiairesList : function (){
+
+                var resource = $resource(urlDataBeneficiaires, {}, {
+                    query : {
+                        method : 'GET',
+                        params : {user : request.getUser()},
+                        isArray : true,
+                        responseType : 'json',
+                        transformResponce : function (data){
+                            return data;
+                        }
+                    }
+                });
+
+                return resource.query();
+            },
+            /*
+             * Vérifie le login et mot de passe
              *
              * @params : {
-             *  nir : numéro SS
-             *	password : mot de passe Ameli
+             *      nir : numéro SS
+             *      password : mot de passe Ameli
              *	}
              *
              *	A FAIRE :
@@ -350,7 +367,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
             },
             /*
              * Réinitialise l'application
-             * Vide toutes les données de localStorage et DATA
+             * Vide toutes les données de localStorage
              */
             clearCache : function (){
 
@@ -358,10 +375,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$interval', '
 
                     localStorageService.clearAll();
                 }
-
-                DATA = [];
-
-                DATA_DATE = null;
 
                 return true;
             }

@@ -3,10 +3,7 @@
  */
 Controllers.controller('RdvCreateCtrl', ['$scope', '$http', 'Datas',
     function ($scope, $http, Datas){
-
-
-
-        /*
+   /*
          * A FAIRE :
          */
     }]);
