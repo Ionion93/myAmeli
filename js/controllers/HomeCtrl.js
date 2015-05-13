@@ -28,9 +28,18 @@ Controllers.controller('HomeCtrl', ['$scope', '$window', 'Data',
             if(login === true){
 
                 /*
-                 * Redirection vers la liste des RDV
+                 * Vérifie si c'est la première visite
+                 * Si oui, redirige vers le tutoriel
+                 * Si non, redirige vers la liste des RDV
                  */
-                $window.location.hash = '#rdv-list/';
+                if(Data.isFirstVisit() === true){
+
+                    $window.location.hash = '#/tutoriel';
+
+                }else{
+
+                    $window.location.hash = '#/rdv-list';
+                }
 
                 return;
             }

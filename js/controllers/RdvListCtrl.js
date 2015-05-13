@@ -15,16 +15,6 @@ Controllers.controller('RdvListCtrl', ['$scope', '$window', '$log', 'Data',
         }
 
         /*
-         * Si c'est la première visite on redirige vers le tutoriel
-         */
-        if(Data.isFirstVisit() === true){
-
-            $window.location.hash = '#/tutoriel';
-
-            return;
-        }
-
-        /*
          * @items : objet qui contient tous les évènements récupérés depuis le service Data
          */
         $scope.items = Data.getRdvList();
@@ -78,6 +68,6 @@ Controllers.controller('RdvListCtrl', ['$scope', '$window', '$log', 'Data',
             /*
              * Redirige vers la vue ps-search
              */
-            $window.location.hash = '#/ps-search';
+            $window.location.hash = '#/rdv-create';
         };
     }]);

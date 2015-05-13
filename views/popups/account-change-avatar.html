@@ -1,0 +1,37 @@
+<!--
+Cette popup est appelée dans mon compte et permet de choisir
+un avatar pour un bénéficiaire choisit
+-->
+
+<!--
+Masque transparent
+-->
+<div class="popup-masque" data-ng-click="cancel()"></div>
+
+<!--
+Popup personalisable
+-->
+<div class="popup animated bounceInDown {{popup.class}}">
+
+    <header class="header">
+        {{popup.titre}}
+    </header>
+
+    <div class="content">
+        {{popup.message}}
+
+        <ul class="list-avatars">
+            <li
+                data-ng-click="chooseAvatar(item.url)"
+                data-ng-repeat="item in popup.items"
+                class="avatar"
+                style="background-image: url({{item.url}});"></li>
+        </ul>
+    </div>
+
+    <footer class="footer">
+        <button data-ng-click="cancel()" class="btn">
+            {{popup.boutons.cancel.titre}}
+        </button>
+    </footer>
+</div>
