@@ -1,36 +1,132 @@
 <div class="create-rdv animated bounceInDown">
 
-    <form novalidate>
+    <form data-ng-submit="submit()" novalidate>
 
         <header class="header">
-            <h1 class="titre">Créer un nouveau RDV</h1>
+            <h1 class="titre"></h1>
         </header>
 
         <div class="content">
 
-            <div class="beneficiaires">
+            <div class="avec">
 
-                <h4>Pour :</h4>
+                <h4 class="header">RDV avec ?</h4>
 
-                <ul>
-                    <li></li>
+                <div class="ps">
+
+                    <div class="titre">
+                        <p>
+                            <strong>{{ps.titre}}</strong>
+                        </p>
+
+                        <address>
+                            {{ps.adresse}}
+                        </address>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="pour">
+
+                <h4 class="header">Pour qui ?</h4>
+
+                <ul class="beneficiaires">
+                    <li
+                        data-ng-repeat="beneficiaire in beneficiaires"
+                        data-ng-click="selectBeneficiaire($index)"
+                        style="background-image:url({{beneficiaire.avatar}})"
+                        class="avatar"
+                        data-ng-class="{active : selectedBeneficiaire === $index}">
+                    </li>
                 </ul>
             </div>
 
-            <div class="ps">
-                <h4>Chez : </h4>
-
-            </div>
-
             <div class="date">
+
+                <h4 class="header">Quand ?</h4>
+
+                <label>Date :
+                    <select
+                        data-ng-change="onChangeDate(dateJour, 'jour')"
+                        data-ng-model="dateJour"
+                        class="jour">
+                        <option
+                            data-ng-repeat="item in plage(1, 31)"
+                            data-ng-value="item|formatZero:2"
+                            data-ng-selected="item === selectedJour"
+                            >
+                            {{item|formatZero:2}}
+                        </option>
+                    </select>
+                    /
+                    <select
+                        data-ng-change="onChangeDate(dateMois, 'mois')"
+                        data-ng-model="dateMois"
+                        class="mois">
+                        <option
+                            data-ng-repeat="item in plage(1, 12)"
+                            data-ng-value="item|formatZero:2"
+                            data-ng-selected="item === selectedMois">
+                            {{item|formatZero:2}}
+                        </option>
+                    </select>
+                    /
+                    <select
+                        data-ng-change="onChangeDate(dateAnnee, 'annee')"
+                        data-ng-model="dateAnnee"
+                        class="annee">
+                        <option
+                            data-ng-repeat="item in plage(2014, 2020)"
+                            data-ng-value="item|formatZero:2"
+                            data-ng-selected="item === selectedAnnee">
+                            {{item|formatZero:2}}
+                        </option>
+                    </select>
+                </label>
+
+                <label>Heure :
+                    <select
+                        data-ng-change="onChangeDate(dateHeure, 'heure')"
+                        data-ng-model="dateHeure"
+                        class="heure">
+                        <option
+                            data-ng-repeat="item in plage(0, 23)"
+                            data-ng-value="item|formatZero:2"
+                            data-ng-selected="item === selectedHeure">
+                            {{item|formatZero:2}}
+                        </option>
+                    </select>
+                    :
+                    <select
+                        data-ng-change="onChangeDate(dateMinute, 'minute')"
+                        data-ng-model="dateMinute"
+                        class="minute">
+                        <option
+                            data-ng-repeat="item in plage(0, 59)"
+                            data-ng-value="item|formatZero:2"
+                            data-ng-selected="item === selectedMinute">
+                            {{item|formatZero:2}}
+                        </option>
+                    </select>
+                </label>
+
             </div>
 
+            <div class="rappel">
+
+                <h4 class="header">Rappel ?</h4>
+                {{selectedIndexDelai}}
+                <ul class="delais">
+                    <li data-ng-repeat="item in delais" data-ng-class="{active : selectedDelai === $index}"><a data-ng-click="selectDelai($index)" href="">{{item.titre}}</a></li>
+                </ul>
+            </div>
 
         </div>
 
         <footer class="footer">
             <button type="submit" class="btn large">
-                Créer
+                Créer l'évènement
             </button>
         </footer>
 
@@ -38,3 +134,7 @@
 
 </div>
 
+<!--
+Reçoit la popup de confirmation d'enregistrement de l'évènement
+-->
+<popup data-ng-translude></popup>

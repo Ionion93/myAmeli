@@ -349,7 +349,7 @@ textarea:focus {
   float: right;
   width: calc(100% - 50px - 2%);
   background-color: #fff;
-  border: solid 1px #dcdcdc;
+  border: solid 1px #e8e8e8;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
@@ -653,6 +653,211 @@ textarea:focus {
 .detail-rdv .footer .btn:nth-child(3) {
   border-left: solid 1px #dcdcdc;
 }
+/* create-rdv : formulaire de création d'un nouveau RDV */
+.create-rdv {
+  width: 96%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.create-rdv .content {
+  padding: 0;
+}
+.create-rdv .content .pour,
+.create-rdv .content .avec,
+.create-rdv .content .date,
+.create-rdv .content .rappel {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: solid 1px #e8e8e8;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
+  /* Titre des cartes */
+  /* Pavé choix du bénéficiaire */
+  /* Pavé choix de la date */
+  /* Pavé choix de l'heure du rappel */
+}
+.create-rdv .content .pour:after,
+.create-rdv .content .avec:after,
+.create-rdv .content .date:after,
+.create-rdv .content .rappel:after {
+  display: block;
+  float: none;
+  clear: both;
+  height: 0;
+  content: "";
+  visibility: hidden;
+}
+.create-rdv .content .pour .header,
+.create-rdv .content .avec .header,
+.create-rdv .content .date .header,
+.create-rdv .content .rappel .header {
+  text-align: left;
+  padding: 10px 0px;
+  color: deeppink;
+}
+.create-rdv .content .pour .beneficiaires,
+.create-rdv .content .avec .beneficiaires,
+.create-rdv .content .date .beneficiaires,
+.create-rdv .content .rappel .beneficiaires {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.create-rdv .content .pour .beneficiaires .avatar,
+.create-rdv .content .avec .beneficiaires .avatar,
+.create-rdv .content .date .beneficiaires .avatar,
+.create-rdv .content .rappel .beneficiaires .avatar {
+  display: inline-block;
+  background-color: whitesmoke;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  margin: 2%;
+  cursor: pointer;
+  border: solid 3px #fff;
+  border-radius: 60px;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+}
+.create-rdv .content .pour .beneficiaires .avatar:hover,
+.create-rdv .content .avec .beneficiaires .avatar:hover,
+.create-rdv .content .date .beneficiaires .avatar:hover,
+.create-rdv .content .rappel .beneficiaires .avatar:hover {
+  transform: scale(1.2) rotateY(180deg);
+  -webkit-transform: scale(1.2) rotateY(180deg);
+  -moz-transform: scale(1.2) rotateY(180deg);
+}
+.create-rdv .content .pour .beneficiaires .avatar:active,
+.create-rdv .content .avec .beneficiaires .avatar:active,
+.create-rdv .content .date .beneficiaires .avatar:active,
+.create-rdv .content .rappel .beneficiaires .avatar:active,
+.create-rdv .content .pour .beneficiaires .avatar.active,
+.create-rdv .content .avec .beneficiaires .avatar.active,
+.create-rdv .content .date .beneficiaires .avatar.active,
+.create-rdv .content .rappel .beneficiaires .avatar.active {
+  border-color: #b8dc70;
+  transform: scale(1.2) rotateY(180deg);
+  -webkit-transform: scale(1.2) rotateY(180deg);
+  -moz-transform: scale(1.2) rotateY(180deg);
+}
+.create-rdv .content .pour label,
+.create-rdv .content .avec label,
+.create-rdv .content .date label,
+.create-rdv .content .rappel label {
+  display: block;
+  width: 48%;
+  float: left;
+  background-color: #fafafa;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 15px;
+  padding: 5px 15px;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+@media all and (max-width: 480px) {
+  .create-rdv .content .pour label,
+  .create-rdv .content .avec label,
+  .create-rdv .content .date label,
+  .create-rdv .content .rappel label {
+    float: none;
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+.create-rdv .content .pour label select,
+.create-rdv .content .avec label select,
+.create-rdv .content .date label select,
+.create-rdv .content .rappel label select {
+  display: inline-block;
+  float: none;
+  width: auto;
+}
+.create-rdv .content .pour .delais,
+.create-rdv .content .avec .delais,
+.create-rdv .content .date .delais,
+.create-rdv .content .rappel .delais {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.create-rdv .content .pour .delais li,
+.create-rdv .content .avec .delais li,
+.create-rdv .content .date .delais li,
+.create-rdv .content .rappel .delais li {
+  display: inline-block;
+  width: 45%;
+  background-color: whitesmoke;
+  overflow: hidden;
+  margin: 1% 1.5%;
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+}
+.create-rdv .content .pour .delais li a,
+.create-rdv .content .avec .delais li a,
+.create-rdv .content .date .delais li a,
+.create-rdv .content .rappel .delais li a {
+  display: block;
+  color: #a9a9a9;
+  padding: 7px 15px;
+}
+.create-rdv .content .pour .delais li:hover,
+.create-rdv .content .avec .delais li:hover,
+.create-rdv .content .date .delais li:hover,
+.create-rdv .content .rappel .delais li:hover,
+.create-rdv .content .pour .delais li:active,
+.create-rdv .content .avec .delais li:active,
+.create-rdv .content .date .delais li:active,
+.create-rdv .content .rappel .delais li:active,
+.create-rdv .content .pour .delais li.active,
+.create-rdv .content .avec .delais li.active,
+.create-rdv .content .date .delais li.active,
+.create-rdv .content .rappel .delais li.active {
+  background-color: #b8dc70;
+}
+.create-rdv .content .pour .delais li:hover a,
+.create-rdv .content .avec .delais li:hover a,
+.create-rdv .content .date .delais li:hover a,
+.create-rdv .content .rappel .delais li:hover a,
+.create-rdv .content .pour .delais li:active a,
+.create-rdv .content .avec .delais li:active a,
+.create-rdv .content .date .delais li:active a,
+.create-rdv .content .rappel .delais li:active a,
+.create-rdv .content .pour .delais li.active a,
+.create-rdv .content .avec .delais li.active a,
+.create-rdv .content .date .delais li.active a,
+.create-rdv .content .rappel .delais li.active a {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.create-rdv .footer .btn {
+  width: 100%;
+  background-color: deeppink;
+  border-color: deeppink;
+  color: #fff;
+  padding: 15px;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+}
 /* search-ps : formulaire de recherche d'un PS/établissement '*/
 .search-ps {
   overflow: hidden;
@@ -827,11 +1032,11 @@ textarea:focus {
 }
 .list-beneficiaires li {
   width: 98%;
-  border: solid 1px #dcdcdc;
   background-color: #fff;
   margin: auto;
   margin-bottom: 1%;
   padding: 20px;
+  border: solid 1px #e8e8e8;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.05);
@@ -1075,23 +1280,23 @@ textarea:focus {
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
+  margin: 1.5%;
+  cursor: pointer;
+  border: solid 2px #fff;
   border-radius: 60px;
   -webkit-border-radius: 60px;
   -moz-border-radius: 60px;
-  margin: 1%;
-  cursor: pointer;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
+  transition: all 0.4s linear;
+  -webkit-transition: all 0.4s linear;
+  -moz-transition: all 0.4s linear;
 }
 .popup .content .list-avatars .avatar:hover,
-.popup .content .list-avatars .avatar:active {
-  transform: scale(1.3);
-  -webkit-transform: scale(1.3);
-  -moz-transform: scale(1.3);
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
-  -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+.popup .content .list-avatars .avatar:active,
+.popup .content .list-avatars .avatar.active {
+  transform: scale(1.2) rotateY(180deg);
+  -webkit-transform: scale(1.2) rotateY(180deg);
+  -moz-transform: scale(1.2) rotateY(180deg);
+  border-color: #a4d247;
 }
 .popup .footer {
   text-align: center;

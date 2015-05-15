@@ -421,7 +421,7 @@ textarea{
             float:right;
             width: calc(~"100% - 50px - 2%"); // max - largeur de l'avatar - la marge
             background-color: #fff;
-            border:solid 1px @gris;
+            border:solid 1px lighten(@gris, 5%);
             .box-shadow(2px 2px 3px);
             .transition(all 0.1s linear);
 
@@ -486,7 +486,6 @@ textarea{
         .box-shadow(0 0 0);
     }
 }
-
 
 /* detail-rdv */
 .detail-rdv{
@@ -624,8 +623,6 @@ textarea{
         padding: 15px;
         padding-top:0;
 
-
-
         .titre{
             margin-bottom: 10px;
             font-size: 20px;
@@ -733,6 +730,149 @@ textarea{
     }
 }
 
+/* create-rdv : formulaire de création d'un nouveau RDV */
+.create-rdv{
+    width:96%;
+    margin:auto;
+    margin-bottom:20px;
+
+    .header{
+        .titre{
+
+        }
+    }
+    .content{
+        padding:0;
+
+        .pour,
+        .avec,
+        .date,
+        .rappel{
+            background-color:#fff;
+            margin-bottom:20px;
+            padding:15px;
+            border:solid 1px lighten(@gris, 5%);
+            .box-shadow(2px 2px 3px);
+
+            &:after{
+                .clearfix();
+            }
+
+            /* Titre des cartes */
+            .header{
+                text-align:left;
+                padding: 10px 0px;
+                color:@rose;
+            }
+
+            /* Pavé choix du bénéficiaire */
+            .beneficiaires{
+                padding:0;
+                margin:0;
+                text-align:center;
+
+                .avatar{
+                    display:inline-block;
+                    background-color:@gris-clair;
+                    background-position:center center;
+                    background-repeat:no-repeat;
+                    background-size:cover;
+                    width:60px;
+                    height:60px;
+                    margin:2%;
+                    cursor:pointer;
+                    border:solid 3px #fff;
+                    .border-radius(60px);
+                    .transition(all 0.3s linear);
+                    .box-sizing(content-box);
+
+                    &:hover{
+                        .transform(scale(1.2) rotateY(180deg));
+
+                    }
+
+                    &:active,
+                        &.active{
+                        border-color:lighten(yellowgreen, 15%);
+                        .transform(scale(1.2) rotateY(180deg));
+                    }
+                }
+            }
+
+            /* Pavé choix de la date */
+            label {
+                display:block;
+                width:48%;
+                float:left;
+                background-color:lighten(@gris-clair, 2%);
+                margin-left: 1%;
+                margin-right: 1%;
+                margin-bottom:15px;
+                padding:5px 15px;
+                .border-radius(7px);
+
+                @media all and(max-width:480px){
+                    float:none;
+                    width:auto;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+
+                select{
+                    display:inline-block;
+                    float:none;
+                    width:auto;
+                }
+            }
+
+            /* Pavé choix de l'heure du rappel */
+            .delais{
+                padding:0;
+                margin:0;
+                text-align:center;
+
+                li{
+                    display:inline-block;
+                    width:45%;
+                    background-color:@gris-clair;
+                    overflow:hidden;
+                    margin:1% 1.5%;
+                    .border-radius(7px);
+                    .transition(all 0.2s linear);
+
+                    a{
+                        display:block;
+                        color:@gris-fonce;
+                        padding:7px 15px;
+                    }
+
+                    &:hover,
+                        &:active,
+                        &.active{
+                        background-color:lighten(yellowgreen, 15%);
+
+                        a{
+                            color:#fff;
+                            .text-shadow(1px 1px 2px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .footer{
+        .btn{
+            width:100%;
+            background-color:@rose;
+            border-color:@rose;
+            color:#fff;
+            padding: 15px;
+            .border-radius(0px);
+        }
+    }
+}
+
 /* search-ps : formulaire de recherche d'un PS/établissement '*/
 .search-ps{
     overflow: hidden;
@@ -769,7 +909,6 @@ textarea{
         }
     }
 }
-
 
 /* contact : formulaire de contact */
 .contact-mail{
@@ -921,11 +1060,11 @@ textarea{
     padding:0;
     li{
         width:98%;
-        border:solid 1px @gris;
         background-color: #fff;
         margin:auto;
         margin-bottom: 1%;
         padding:20px;
+        border:solid 1px lighten(@gris, 5%);
         .box-shadow(2px 2px 3px);
 
         &:after{
@@ -1148,15 +1287,17 @@ textarea{
                 background-repeat: no-repeat;
                 background-size: cover;
                 overflow: hidden;
-                .border-radius(60px);
-                margin:1%;
+                margin:1.5%;
                 cursor:pointer;
-                .transition(all 0.1s linear);
+                border:solid 2px #fff;
+                .border-radius(60px);
+                .transition(all 0.4s linear);
 
                 &:hover,
-                &:active{
-                    .transform(scale(1.3));
-                    .box-shadow(3px 3px 5px);
+                    &:active,
+                    &.active{
+                    .transform(scale(1.2) rotateY(180deg));
+                    border-color:lighten(yellowgreen, 5%);
                 }
             }
         }
@@ -1408,4 +1549,3 @@ input[type=reset]{
         opacity: 1;
     }
 }
-

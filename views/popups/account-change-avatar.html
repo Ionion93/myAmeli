@@ -25,6 +25,8 @@ Popup personalisable
                 data-ng-click="chooseAvatar(item.url)"
                 data-ng-repeat="item in popup.items"
                 class="avatar"
+                data-ng-class="{active : item.url === popup.selectedItem}"
+                data-ng-animate="'animate'"
                 style="background-image: url({{item.url}});"></li>
         </ul>
     </div>

@@ -16,8 +16,6 @@ Controllers.controller('AccountCtrl', ['$scope', '$log', '$window', '$filter', '
          */
         $scope.changeAvatar = function (id){
 
-            $log.log("On est dnas la fonction changeAvatar");
-
             $scope.popUrl = "views/popups/account-change-avatar.html";
 
             /*
@@ -78,9 +76,14 @@ Controllers.controller('AccountCtrl', ['$scope', '$log', '$window', '$filter', '
             ];
 
             /*
+             * @selectedItem : bénéficiaire selectionné
+             */
+            $scope.popup.selectedItem = $scope.items[id].avatar;
+
+            /*
              * chooseAvatar(url) : quand l'utilisateur clique sur un avatar
              */
-            $scope.chooseAvatar = function(url){
+            $scope.chooseAvatar = function (url){
 
                 /*
                  * Met à jour l'avatar du bénéficiaire choisi
@@ -88,13 +91,18 @@ Controllers.controller('AccountCtrl', ['$scope', '$log', '$window', '$filter', '
                 $scope.items[id]["avatar"] = url;
 
                 /*
+                 * Met à jour l'avatar selectionné
+                 */
+                $scope.popup.selectedItem = $scope.items[id].avatar;
+
+                /*
                  * Met à jour l'avatar dans le service Data
                  */
-                 Data.updateBeneficiaire({
-                     id : id,
-                     element : "avatar",
-                     valeur : url
-                 });
+                Data.updateBeneficiaire({
+                    id : id,
+                    element : "avatar",
+                    valeur : url
+                });
             };
 
             /*

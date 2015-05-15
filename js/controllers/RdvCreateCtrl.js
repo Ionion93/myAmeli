@@ -2,20 +2,8 @@
  * RdvCreateCtrl : permet de créer un nouveau RDV avec les informations récupérées
  * depuis la vue de recherche d'un PS et les informations saisies par l'utilisateur
  */
-Controllers.controller('RdvCreateCtrl', ['$scope', '$log', '$filter', 'Data',
-    function ($scope, $log, $filter, Data){
-
-        /*
-         * @arrBeneficiaire : informations sur le bénéficiaire récupérées depuis
-         * le service Data
-         *
-         * A FAIRE : Récupérer le vrai ID du bénéficiaire. Pour les test, l'ID est
-         * généré aléatoirement
-         */
-
-        $log.log("Nb rdv dans localStorage : " + Data.getRdvList().length);
-
-        var arrBeneficiaire = Data.getBeneficiairesList()[Math.ceil(Math.random() * Data.getBeneficiairesList().length - 1)];
+Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter', 'Data',
+    function ($scope, $window, $log, $filter, Data){
 
         /*
          * @arrPs : informations sur le PS récupérées depuis le service Data
@@ -30,92 +18,278 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$log', '$filter', 'Data',
         };
 
         /*
-         * @dateRdv : date du RDV saisie par l'utilisateur
-         *
-         * A FAIRE : date générée aléatoire
+         * On injecte les informations du PS dans le scope
          */
-        var dateRdv = new Date().getTime() - Math.ceil(Math.random() * (1000 * 60 * 60 * 24 * 10));
+        $scope.ps = arrPs;
 
         /*
-         * @dateRdvJour : convertit la date en timestamp sans l'heure
+         * Injecte les informations sur les bénéficiaires dans le scope
          */
-        var dateRdvJour = new Date($filter("date")(dateRdv, "MM/dd/yyyy")).getTime();
+        $scope.beneficiaires = Data.getBeneficiairesList();
 
         /*
-         * @notes : notes saisies par l'utilisateur
+         * Bénéficiaire selectionné par défaut
          */
-        var userNotes = null;
+        $scope.selectedBeneficiaire = 0;
 
         /*
-         * @defaultDelaiRemboursement : délai de remboursement par défaut
-         * + 5 jours
+         * selectBeneficiaire($index) : permet de changer l'heure du rappel
          */
-        var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 5;
+        $scope.selectBeneficiaire = function ($index){
+
+            $scope.selectedBeneficiaire = $index;
+        };
 
         /*
-         * @dateRemboursement : date de remboursement par défaut
+         * plage(min, max) : génère un nombre dans l'intervalle définit
+         * par @min et @max
          */
-        var defaultDateRemboursement = null;
+        $scope.plage = function (min, max){
+
+            var arrNumbers = [];
+
+            for(var i = min; i <= max; i++){
+
+                arrNumbers.push(i);
+            }
+
+            return arrNumbers;
+        };
 
         /*
-         * @defaultMontantPaye : montant réglé au PS par défaut
+         * Element de la date selectionné par défaut
          */
-        var defaultMontantPaye = null;
+        $scope.selectedJour = parseInt($filter('date')(new Date().getTime(), 'dd'));
+
+        $scope.selectedMois = parseInt($filter('date')(new Date().getTime(), 'MM'));
+
+        $scope.selectedAnnee = parseInt($filter('date')(new Date().getTime(), 'yyyy'));
+
+        $scope.selectedHeure = parseInt($filter('date')(new Date().getTime(), 'HH'));
+
+        $scope.selectedMinute = parseInt($filter('date')(new Date().getTime(), 'mm'));
 
         /*
-         * @defaultEtat : etat aléatoire pour les tests
+         * onChangeDate(item, value) : permet de changer la date et l'heure
          */
-        var defaultEtat = false;
+        $scope.onChangeDate = function (item, value){
+
+            switch(item){
+
+                case 'jour':
+                    $scope.selectedJour = value;
+                    break;
+
+                case 'mois':
+                    $scope.selectedMois = value;
+                    break;
+
+                case 'annee':
+                    $scope.selectedAnnee = value;
+                    break;
+
+                case 'heure':
+                    $scope.selectedHeure = value;
+                    break;
+
+                case 'minute':
+                    $scope.selectedMinute = value;
+                    break;
+
+                default:
+                    break;
+            }
+        };
 
         /*
-         * @maxId : max ID des données RDV
+         * @delais : contient les délais de rappel
          */
-        var defaultRdvId = Data.getLastRdvId() + 1;
-
-        /*
-         * @arrRdv : Objet nouveau RDV
-         */
-        var arrRdv = {
-            id : defaultRdvId,
-            type : "rdv",
-            date : dateRdv,
-            dateJour : dateRdvJour,
-            beneficiaire : {
-                id : arrBeneficiaire.id,
-                nom : arrBeneficiaire.nom,
-                prenom : arrBeneficiaire.prenom,
-                avatar : arrBeneficiaire.avatar,
-                qualite : arrBeneficiaire.qualite,
-                sexe : arrBeneficiaire.sexe,
-                dateNaissance : arrBeneficiaire.dateNaissance,
-                rang : arrBeneficiaire.rang
+        $scope.delais = [
+            {
+                titre : "A l'heure",
+                valeur : 0
             },
-            ps : {
-                titre : arrPs.titre,
-                numero : arrPs.numero,
-                telephone : arrPs.telephone,
-                adresse : arrPs.adresse
+            {
+                titre : "1 jour avant",
+                valeur : 1000 * 60 * 60 * 24
             },
-            titre : arrPs.titre,
-            numero : arrPs.numero,
-            telephone : arrPs.telephone,
-            adresse : arrPs.adresse,
-            notes : userNotes,
-            etat : defaultEtat,
-            delaiRemboursement : defaultDelaiRemboursement,
-            montantPaye : null,
-            remboursement : {
-                etat : defaultEtat,
-                delaiRemboursement : defaultDelaiRemboursement,
-                montant : defaultMontantPaye,
-                date : defaultDateRemboursement
+            {
+                titre : "1 heure avant",
+                valeur : 1000 * 60 * 60
             },
-            archive : false,
-            notification : false
+            {
+                titre : "30 min avant",
+                valeur : 1000 * 60 * 30
+            }
+        ];
+
+        /*
+         * Dalai du rappel par défaut
+         */
+        $scope.selectedDelai = 0;
+
+        /*
+         * selectDelai($index) : permet de changer l'heure du rappel
+         */
+        $scope.selectDelai = function ($index){
+
+            $scope.selectedDelai = $index;
         };
 
         /*
          * Crée le RDV en faisant appel au service Data
          */
-        Data.createRdv(arrRdv);
+        $scope.submit = function (){
+
+            /*
+             * @dateRdv : date du RDV saisie par l'utilisateur
+             */
+            var dateRdv = new Date($scope.selectedMois + "/" + $scope.selectedJour + "/" + $scope.selectedAnnee + " " + $scope.selectedHeure + ":" + $scope.selectedMinute).getTime();
+
+            /*
+             * @dateRdvJour : convertit la date en timestamp sans l'heure
+             */
+            var dateRdvJour = new Date($filter("date")(dateRdv, "MM/dd/yyyy")).getTime();
+
+            /*
+             * @dateRdvRappel : date de rappel du RDV
+             */
+            var dateRdvRappel = dateRdvJour + $scope.selectedDelai;
+
+            /*
+             * @notes : notes saisies par l'utilisateur
+             */
+            var userNotes = null;
+
+            /*
+             * @defaultDelaiRemboursement : délai de remboursement par défaut
+             * + 5 jours
+             */
+            var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 5;
+
+            /*
+             * @dateRemboursement : date de remboursement par défaut
+             */
+            var defaultDateRemboursement = null;
+
+            /*
+             * @defaultMontantPaye : montant réglé au PS par défaut
+             */
+            var defaultMontantPaye = null;
+
+            /*
+             * @defaultEtat : etat aléatoire pour les tests
+             */
+            var defaultEtat = false;
+
+            /*
+             * @maxId : max ID des données RDV
+             */
+            var defaultRdvId = Data.getLastRdvId() + 1;
+
+            /*
+             * @arrBeneficiaire : informations sur le bénéficiaire récupérées depuis
+             */
+            var arrBeneficiaire = $filter("filter")($scope.beneficiaires, {id : $scope.selectedBeneficiaire})[0];
+
+            /*
+             * @arrRdv : Objet nouveau RDV
+             */
+            var arrRdv = {
+                id : defaultRdvId,
+                type : "rdv",
+                date : dateRdv,
+                dateJour : dateRdvJour,
+                dateRappel : dateRdvRappel,
+                rappel : false,
+                beneficiaire : {
+                    id : arrBeneficiaire.id,
+                    nom : arrBeneficiaire.nom,
+                    prenom : arrBeneficiaire.prenom,
+                    avatar : arrBeneficiaire.avatar,
+                    qualite : arrBeneficiaire.qualite,
+                    sexe : arrBeneficiaire.sexe,
+                    dateNaissance : arrBeneficiaire.dateNaissance,
+                    rang : arrBeneficiaire.rang
+                },
+                ps : {
+                    titre : arrPs.titre,
+                    numero : arrPs.numero,
+                    telephone : arrPs.telephone,
+                    adresse : arrPs.adresse
+                },
+                titre : arrPs.titre,
+                numero : arrPs.numero,
+                telephone : arrPs.telephone,
+                adresse : arrPs.adresse,
+                notes : userNotes,
+                etat : defaultEtat,
+                delaiRemboursement : defaultDelaiRemboursement,
+                montantPaye : defaultMontantPaye,
+                remboursement : {
+                    etat : defaultEtat,
+                    delaiRemboursement : defaultDelaiRemboursement,
+                    montant : defaultMontantPaye,
+                    date : defaultDateRemboursement
+                },
+                archive : false,
+                notification : false
+            };
+
+
+            /*
+             * Sauvegarde le RDV dans localStorage
+             */
+            if(Data.createRdv(arrRdv) === true){
+
+                $log.info(arrRdv);
+
+
+                /*
+                 * Popup de notification
+                 */
+                $scope.popUrl = 'views/popups/alert.html';
+
+                /*
+                 * Personnalisation de la popup
+                 */
+                $scope.popup = {
+                    "titre" : "RDV enregistré",
+                    "message" : "L'évènement a été sauvegardé avec succès.",
+                    "class" : "success",
+                    "boutons" : {
+                        "confirm" : {
+                            "titre" : "Cool !",
+                            "action" : "confirm()"
+                        },
+                        "cancel" : {
+                            "titre" : "Fermer",
+                            "action" : "cancel()"
+                        }
+                    }
+                };
+
+                /*
+                 * L'utilisateur confirme la duplication
+                 */
+                $scope.confirm = function (){
+
+                    /*
+                     * Appelle la vue détail d'un RDV en passant l'ID du RDV
+                     */
+                    $window.location.hash = '#/rdv-detail/' + defaultRdvId;
+                };
+
+                /*
+                 * L'utilisateur confirme la duplication
+                 */
+                $scope.cancel = function (){
+
+                    /*
+                     * Appelle la vue détail d'un RDV en passant l'ID du RDV
+                     */
+                    $window.location.hash = '#/rdv-detail/' + defaultRdvId;
+                };
+            }
+        };
     }]);

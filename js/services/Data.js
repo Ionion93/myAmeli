@@ -262,16 +262,27 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
              */
             createRdv : function(obj){
 
+                /*
+                 * Récupère la liste des RDV
+                 */
                 var data = request.getRdvList();
 
+                /*
+                 * Ajoute le nouveau RDV
+                 */
                 data.push(obj);
 
+                /*
+                 * Enregistrement et mise à jour dans localStorage
+                 */
                 if(localStorageService.isSupported){
 
                     localStorageService.set("data-rdv", data);
 
                     localStorageService.set("data-rdv-date", new Date().getTime());
                 }
+
+                return true;
             },
             /*
              * Vérifie si les données sur les bénéficiaires sont dans localStorage
