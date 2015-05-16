@@ -488,7 +488,109 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                 }
 
                 return true;
-            }
+            },
+            
+            /*
+             * Retourne la liste des favoris 
+             */
+            getFavorisList : function (){
+
+                if(localStorageService.isSupported){
+
+                    if(localStorageService.get("favoris") !== null){
+
+                        return localStorageService.get("favoris");
+                    }else{
+
+                        return [];
+                    }
+                }
+
+                return false;
+            },
+
+            /*
+             * Ajoute le PS ou l'établissement dans les favoris
+             */
+            setFavori : function (params){
+                /*
+                 * Récupération des favoris stockés dans LocalStorage 
+                 * et ajout du nouvel élément
+                 */
+                var arrData = request.getFavorisList();
+                arrData.push(params);
+                DATA = arrData;
+
+                /*
+                 * Mise à jour des donnés dans localStorage
+                 */
+                if(localStorageService.isSupported){
+
+                    localStorageService.set("favoris", arrData);
+                }
+            },
+            
+            /*
+             * Ajoute le PS ou l'établissement dans les favoris
+             */
+            deleteFavori : function (param){
+                /*
+                 * On récupère les favoris stockés dans LocalStorage 
+                 */
+                var data = request.getFavorisList();
+
+                /*
+                 * On parcourt la liste des favoris pour constituer une nouvelle liste
+                 * qui ne contiendra pas l'élément passé en paramètre
+                 */
+                var arrData = [];
+
+                angular.forEach(data, function (item){
+
+                    if(item.numero !== param){
+
+                        arrData.push(item);
+                    }
+                });
+
+                /*
+                 * Mise à jour dans DATA
+                 */
+                DATA = arrData;
+
+                /*
+                 * Mise à jour des donnés dans localStorage
+                 */
+                if(localStorageService.isSupported){
+
+                    localStorageService.set("favoris", arrData);
+                }
+            },
+            
+            /*
+             * Retourne true si le PS ou l'établissement est dans les favoris
+             */            
+            isFavori : function (param){
+                /*
+                 * On récupère les favoris stockés dans LocalStorage 
+                 */
+                var data = request.getFavorisList();
+
+                var retour = false;
+
+                /*
+                 * On parcourt la liste des favoris pour chercher le PS ou l'établissement passé en paramètre
+                 */
+                angular.forEach(data, function (item){
+
+                if(item.numero === param){
+                        retour = true;
+                    }
+                });
+
+                return retour;
+            }                        
+                        
         };
 
         return request;

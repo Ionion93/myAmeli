@@ -8,28 +8,114 @@
 
         <div class="content">
 
-            <select id="type">
+            <select id="type" data-ng-model="type">
                 <option>Professionnel de sante</option>
                 <option>Etablissement</option>
             </select>
 
-            <input type="text" placeholder="Nom" id="nom">
+            <input type="text" placeholder="Nom" id="nom" data-ng-model="nom">
 
-            <input type="text" placeholder="Profession" id="profession">
+            <select id="profession" data-ng-model="profession" data-ng-options="value.id as value.libelle group by value.group for value in optionsProfession">
+            </select>
 
-            <input type="text" placeholder="Acte" id="acte">
+            <input type="text" placeholder="Acte" id="acte" data-ng-model="acte">
 
-            <input type="text" placeholder="Localisation" id="localisation">
+            <input type="text" placeholder="Localisation" id="localisation" data-ng-model="localisation">
 
         </div>
 
+        <span class="filtre_recherche_titre" data-ng-click="afficherFiltreRecherche()">
+            {{filtre_recherche_titre}}
+        </span>
+        <div data-ng-class="classe_filtre">
+            
+            <label for="select_cv">Carte Vitale</label>
+            <select id="select_cv" data-ng-model="cv">
+                <option>Indifférent</option>
+                <option>Oui</option>
+                <option>Non</option>
+            </select><br/>
+
+            <label for="select_honoraires">Type d'honoraires</label>
+            <select id="select_honoraires" data-ng-model="honoraires">
+                <option>Indifférent</option>
+                <option>Honoraires sans dépassement</option>
+                <option>Honoraires avec dépassements maitrisés</option>
+                <option>Honoraires libres</option>
+                <option>Non conventionné</option>
+            </select><br/>
+
+            <label for="select_sexe">Sexe</label>
+            <select id="select_sexe" data-ng-model="sexe">
+                <option>Indifférent</option>
+                <option>Homme</option>
+                <option>Femme</option>
+            </select>            
+            
+        </div>
+        
+        
         <footer class="footer">
-            <button type="submit" class="btn large">
+            <button type="submit" data-ng-click="searchPs()" class="btn large">
                 Rechercher
             </button>
         </footer>
 
     </form>
-
+    
 </div>
 
+<div class="nb_result">{{nb_result}}</div>
+
+<ul class="list-ps" data-ng-repeat="item in items">
+
+    <li>
+
+        <div class="header">
+
+            <div>
+                <h4 class="nom">{{item.nom}} {{item.prenom}}</h4>               
+                <div class="cv {{item.cv}}"></div>
+            </div>
+
+            <br/>
+
+            <div class="numero">{{item.numero}}</div>
+            <div class="honoraire">{{item.honoraire}}</div>
+
+        </div>
+
+        <div class="content">
+
+            <address class="adresse">{{item.adresse}}</address>
+
+            <a href="tel:{{item.telephone}}" class="telephone">{{item.telephone}}</a>
+
+            <!--
+            Redirige vers Google Maps. Lance l'application si installée sinon le navigateur.
+            -->
+            <a data-ng-href="https://www.google.fr/maps/dir/ma+position/{{item.adresse}}" target="_blank" class="itineraire">Itinéraire</a>
+
+            <!--
+            ngMap
+            -->
+            <map class="maps" center="{{item.adresse}}" zoom="14" disable-default-u-i="true">
+              <marker position="{{item.adresse}}" title="Ici" visible="true"></marker>
+            </map>                
+        </div>
+    
+        <footer class="actions">
+
+            <button class="btn" data-ng-click="ajouterFavori($index)">
+                <img data-ng-src="{{item.favori}}" id="btn-1" class="icon" />
+            </button>
+
+            <button class="btn" data-ng-click="planifierRdv()">
+                <embed src="img/rdv.png" type="image/png" id="btn-2" class="icon" />
+            </button>
+
+        </footer>
+        
+    </li>
+    
+</ul>
