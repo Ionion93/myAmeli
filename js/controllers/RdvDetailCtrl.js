@@ -17,6 +17,30 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
          */
         $scope.dateLimite = new Date().getTime();
 
+        /*
+         * Mise à jour de l'état de notification de remboursement
+         */
+        if($scope.item.etat === true && $scope.item.notification === false){
+
+            Data.updateRdv({
+                notification : true
+            });
+        }
+
+        /*
+         * Met à jour l'état de la notification de rappel
+         */
+        if(new Date().getTime() >= $scope.item.dateRappel && $scope.item.rappel === false){
+
+            Data.updateRdv({
+                rappel : true
+            });
+        }
+
+        /*
+         * Affiche la popup de contact quand le délai de remboursement prévisionnel
+         * est dépassé
+         */
         $scope.showContact = function (){
 
             /*
@@ -57,14 +81,78 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
         };
 
         /*
-         * Met à jour l'état de la notification pour ne pas qu'elle s'affiche de nouveau
+         * Affiche la popup qui donne le détail du remboursement effectué par la CPAM
          */
-        if($scope.item.etat === true && $scope.item.notification === false){
+        $scope.showDetail = function (){
 
-            Data.updateRdv({
-                notification : true
-            });
-        }
+            /*
+             * Popup de confirmation
+             */
+            $scope.popUrl = 'views/popups/rdv-show-detail.html';
+
+
+            /*
+             * Personnalisation de la popup
+             */
+            $scope.popup = {
+                "titre" : "Détail du remboursement",
+                "message" : null,
+                "class" : "info",
+                "boutons" : {
+                    "confirm" : {
+                        "titre" : "Cool !",
+                        "action" : "confirm()"
+                    },
+                    "cancel" : {
+                        "titre" : "Fermer",
+                        "action" : "cancel()"
+                    }
+                }
+            };
+
+            /*
+             * Informations sur le règlement
+             */
+            $scope.popup.items = [
+                {
+                    libelle : "Montant payé",
+                    valeur : $filter('number')($scope.item.montantPaye, 2)
+                },
+                {
+                    libelle : "Montant remboursé",
+                    valeur : $filter('number')($scope.item.remboursement.montant, 2)
+                },
+                {
+                    libelle : "Taux de remboursement",
+                    valeur : $scope.item.remboursement.taux
+                },
+                {
+                    libelle : "Part Assurance Maladie",
+                    valeur : $filter('number')($scope.item.remboursement.montantAS, 2)
+                },
+                {
+                    libelle : "Part mutuelle",
+                    valeur : $filter('number')($scope.item.remboursement.montantMutuelle, 2)
+                },
+                {
+                    libelle : "Montant des retenus",
+                    valeur : $filter('number')($scope.item.remboursement.montantPF + $scope.item.remboursement.montantFR, 2)
+                }
+            ];
+
+            /*
+             * L'utilisateur annule
+             */
+            $scope.cancel = function (){
+
+                /*
+                 * Vide la vue
+                 */
+                $scope.popUrl = null;
+            };
+
+        };
+
 
         /*
          *  Mise à jour dynamique lors de la saisie d'une note
@@ -156,11 +244,19 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
              * Met à jour et formate les valeurs des <select>
              */
             $scope.dateJour = $filter('date')($scope.item.date, "dd");
+
             $scope.dateMois = $filter('date')($scope.item.date, "MM");
+
             $scope.dateAnnee = $filter('date')($scope.item.date, "yyyy");
+
             $scope.dateHeure = $filter('date')($scope.item.date, "HH");
+
             $scope.dateMinute = $filter('date')($scope.item.date, "mm");
 
+            /*
+             * onChangeDate(value, type) : est appellée quand l'utilisateur reporte
+             * la date et/ou l'heure du RDV
+             */
             $scope.onChangeDate = function (value, type){
 
                 switch(type){

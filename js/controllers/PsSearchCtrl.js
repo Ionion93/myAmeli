@@ -12,28 +12,28 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
          * 2 a - filtrer les résultats obtenus (ex : avec CV, homme/femme),
          * 3 - renvoyer vers le formulaire qui permet de créer un nouvel évènement
          */
-    
-    
+
+
         /*
          * Récupère la liste des professions
          * A FAIRE : appel webservice de requêtage des professions
-         */    
+         */
         $http.get('datas/data-profession.json').success(function (data){
-            
+
             $scope.optionsProfession = data;
-            
-        });   
+
+        });
 
         //Sélection par défaut
         $scope.type = "Professionnel de sante";
-        
+
 
         /*
          * AfficherFiltreRecherche() : Affiche ou cache les options de recherche supplémentaires.
          * Par défaut, elles sont cachées
-         */        
-        $scope.filtre_recherche_titre = "+ Afficher plus d'options de recherche"; 
-        $scope.classe_filtre = "filtre_recherche cacher";        
+         */
+        $scope.filtre_recherche_titre = "+ Afficher plus d'options de recherche";
+        $scope.classe_filtre = "filtre_recherche cacher";
         $scope.afficherFiltreRecherche = function (){
 
             if ($scope.classe_filtre == "filtre_recherche cacher"){
@@ -46,14 +46,14 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
             }
         };
 
-        
-    
-        /* 
+
+
+        /*
          * Fonction de recherche d'un PS ou d'un établissement
          */
         $scope.searchPs = function(){
             console.log("Recherche PS" + $scope.type + $scope.nom + $scope.prenom + $scope.localisation + $scope.acte, this);
-            
+
             /*
              * Récupère les données depuis l'API
              * A FAIRE : appel webservice de requêtage des PS avec les critères de recherche en argument
@@ -71,7 +71,7 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
                     if (Data.isFavori(item.numero))
                         $favori = "img/favori_oui.png";
                     else
-                        $favori = "img/favori_non.png"
+                        $favori = "img/favori_non.png";
 
                     /*
                      *  @nom :
@@ -88,13 +88,13 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
                      *  @adresse :
                      *   - Adresse du PS ou de l'établissement
                      *
-                     *  @honoraire : 
+                     *  @honoraire :
                      *   - type d'honoraire du PS
-                     *   
-                     *  @cv : 
+                     *
+                     *  @cv :
                      *   - true : si le PS prend la carte vitale
                      *   - false : si le PS ne prend pas la carte vitale
-                     *   
+                     *
                      */
                     arrItems.push({
                         "numero": item.numero,
@@ -112,8 +112,8 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
                  * @items : objet qui contient tous les évènements + les données insérées par calculs
                  */
                 $scope.items = arrItems;
-                
-                
+
+
                 /*
                  * @nb_result : nombre d'occurences trouvées
                  */
@@ -125,19 +125,19 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
 
             });
 
-    
-        }    
-        
-        
+
+        }
+
+
         /*
          * ajouterFavori() : ajoute le PS ou l'établissement dans les favoris.
          */
         $scope.ajouterFavori = function ($index){
-            
+
             if ($scope.items[$index].favori == "img/favori_non.png")
             {
                 $scope.items[$index].favori = "img/favori_oui.png";
-            
+
                 Data.setFavori({
                     numero : $scope.items[$index].numero,
                     nom : $scope.items[$index].nom,
@@ -159,6 +159,6 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
         $scope.planifierRdv = function (){
 
             console.log("planifierRdv", $scope.item);
-        };      
+        };
 
     }]);

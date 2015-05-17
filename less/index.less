@@ -913,7 +913,7 @@ textarea{
         border-radius:7px;
         margin: auto;
         padding: 10px;
-        
+
         &.afficher{
             display: block;
         }
@@ -936,7 +936,7 @@ textarea{
             font-size:12px;
         }
     }
-    
+
     .footer{
         padding:15px;
 
@@ -1182,7 +1182,6 @@ textarea{
 
                     }
                 }
-
             }
         }
 
@@ -1461,6 +1460,43 @@ textarea{
                 border-color: @gris-fonce;
                 color:white;
                 width:40%;
+            }
+        }
+
+        /* Cet élément est utilisé dans la popup qui donne le détail du règlement */
+        .paiement{
+
+            table{
+                table-layout:fixed;
+                margin:auto;
+                width:100%;
+                border-spacing: 0;
+                border-collapse: separate;
+
+                tr{
+                    margin:0;
+                    padding:0;
+
+                    &:nth-child(even){
+                        background-color:lighten(@gris-clair, 2%);
+                    }
+
+                    &:nth-child(2) > *{
+                        font-weight: bold;
+                        color:@rose;
+                    }
+                    td{
+                        border:none;
+                        margin:0;
+                        padding: 10px;
+                        width: 50%;
+                        .text-overflow(ellipsis);
+
+                        &:last-child{
+                            text-align: right;
+                        }
+                    }
+                }
             }
         }
 

@@ -1421,6 +1421,7 @@ textarea:focus {
   text-align: justify;
   /* Cet élément est utilisé dans la popup qui permet de reporter un RDV */
   /* Cet élément est utilisé dans la popup qui propose de contacter la CPAM */
+  /* Cet élément est utilisé dans la popup qui donne le détail du règlement */
   /* Cet élément est utilisé dans la popup qui permet de changer d'avater */
 }
 .popup .content .date {
@@ -1454,6 +1455,36 @@ textarea:focus {
   border-color: #a9a9a9;
   color: white;
   width: 40%;
+}
+.popup .content .paiement table {
+  table-layout: fixed;
+  margin: auto;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+.popup .content .paiement table tr {
+  margin: 0;
+  padding: 0;
+}
+.popup .content .paiement table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+.popup .content .paiement table tr:nth-child(2) > * {
+  font-weight: bold;
+  color: deeppink;
+}
+.popup .content .paiement table tr td {
+  border: none;
+  margin: 0;
+  padding: 10px;
+  width: 50%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.popup .content .paiement table tr td:last-child {
+  text-align: right;
 }
 .popup .content .list-avatars {
   margin: 0;

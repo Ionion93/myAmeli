@@ -1,0 +1,38 @@
+<!--
+Cette popup est appelée dans la page de détail d'un RDV quand le remboursement
+a été effectué. Elle donne les informations sur le paiement
+-->
+
+<!--
+Masque transparent
+-->
+<div class="popup-masque" data-ng-click="cancel()"></div>
+
+<!--
+Popup personalisable
+-->
+<div class="popup animated bounceInDown {{popup.class}}">
+
+    <header class="header">
+        {{popup.titre}}
+    </header>
+
+    <div class="content">
+        {{popup.message}}
+
+        <div class="paiement">
+            <table>
+                <tr data-ng-repeat="item in popup.items">
+                    <td>{{item.libelle}}</td>
+                    <td>{{item.valeur}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <button data-ng-click="cancel()" class="btn">
+            {{popup.boutons.cancel.titre}}
+        </button>
+    </footer>
+</div>

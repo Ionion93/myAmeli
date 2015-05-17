@@ -133,7 +133,7 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
          */
         $scope.selectDelai = function ($index){
 
-            $scope.selectedDelai = $index;
+            $scope.selectedDelai = $scope.delais[$index].valeur;
         };
 
         /*
@@ -154,7 +154,7 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
             /*
              * @dateRdvRappel : date de rappel du RDV
              */
-            var dateRdvRappel = dateRdvJour + $scope.selectedDelai;
+            var dateRdvRappel = dateRdv + $scope.selectedDelai;
 
             /*
              * @notes : notes saisies par l'utilisateur
@@ -176,6 +176,31 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
              * @defaultMontantRemboursement : montant total du remboursement
              */
             var defaultMontantRemboursement = null;
+
+            /*
+             * @defaultTaux : taux de rembousement
+             */
+            var defaultTaux = null;
+
+            /*
+             * @defaultMontantAS : part Assurance Maladie
+             */
+            var defaultMontantAS = null;
+
+            /*
+             * @defaultMontantMutuelle : part mutuelle
+             */
+            var defaultMontantMutuelle = null;
+
+            /*
+             * @defaultMontantPF : montant des participations forfaitaires
+             */
+            var defaultMontantPF = null;
+
+            /*
+             * @defaultMontantFR : montant des franchises médicales
+             */
+            var defaultMontantFR = null;
 
             /*
              * @defaultMontantPaye : montant réglé au PS par défaut
@@ -205,8 +230,11 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
                 type : "rdv",
                 date : dateRdv,
                 dateJour : dateRdvJour,
+                etat : defaultEtat,
+                notification : false,
                 dateRappel : dateRdvRappel,
                 rappel : false,
+                archive : false,
                 beneficiaire : {
                     id : arrBeneficiaire.id,
                     nom : arrBeneficiaire.nom,
@@ -224,16 +252,18 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
                     adresse : arrPs.adresse
                 },
                 notes : userNotes,
-                etat : defaultEtat,
                 delaiRemboursement : defaultDelaiRemboursement,
                 montantPaye : defaultMontantPaye,
                 remboursement : {
                     etat : defaultEtat,
                     montant : defaultMontantRemboursement,
+                    taux : defaultTaux,
+                    montantAS : defaultMontantAS,
+                    montantMutuelle : defaultMontantMutuelle,
+                    montantPF : defaultMontantPF,
+                    montantFR : defaultMontantFR,
                     date : defaultDateRemboursement
-                },
-                archive : false,
-                notification : false
+                }
             };
 
 
@@ -241,9 +271,6 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
              * Sauvegarde le RDV dans localStorage
              */
             if(Data.createRdv(arrRdv) === true){
-
-                $log.info(arrRdv);
-
 
                 /*
                  * Popup de notification

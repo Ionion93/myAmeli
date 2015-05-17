@@ -23,19 +23,45 @@
             <div class="{{item.remboursement.etat}}"></div>
         </div>
 
-        <div data-ng-if="item.remboursement.etat === true" class="date">{{item.remboursement.date| date:'dd/MM/yyyy'}}</div>
+        <!--
+        Date du remboursement
+        -->
+        <div
+            data-ng-if="item.remboursement.etat === true"
+            class="date">Remboursé le {{item.remboursement.date| date:'dd/MM/yyyy'}}</div>
 
-        <div data-ng-if="item.remboursement.etat === true" class="montant">{{item.remboursement.montant| currency:'':2}} €</div>
+        <!--
+        Montant du remboursement
+        -->
+        <div
+            data-ng-if="item.remboursement.etat === true"
+            class="montant">{{item.remboursement.montant| currency:'':2}} €
+            <a data-ng-click="showDetail()" href="">
+                <img data-ng-src="img/help-white.svg">
+            </a>
+        </div>
 
-        <div data-ng-if="item.remboursement.etat === false" class="message">
+
+        <!--
+        Remboursement en attente
+        -->
+        <div
+            data-ng-if="item.remboursement.etat === false"
+            class="message">
             {{item.date + item.delaiRemboursement < dateLimite ? "Attendu le" : "Prévu le"}} {{item.date + item.delaiRemboursement| date:'dd/MM/yyyy'}}
         </div>
 
-        <div data-ng-if="item.date + item.delaiRemboursement < dateLimite && item.etat === false" class="contact">
+        <!--
+        Icône qui renvoie vers la popup de contact
+        -->
+        <div
+            data-ng-if="item.date + item.delaiRemboursement < dateLimite && item.etat === false"
+            class="contact">
             <a data-ng-click="showContact()" href="">
                 <img data-ng-src="img/help-white.svg">
             </a>
         </div>
+
     </div>
 
     <div class="content">

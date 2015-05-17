@@ -77,6 +77,8 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                      */
 
                     /*
+                     * NOTIFICATION DE REMBOURSEMENT
+                     *
                      * Envoi une notification si :
                      * 1 - les notifications sont activées
                      * 2 - la date des dernières données est connue
@@ -94,10 +96,43 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                          */
                         Notification.send({
                             id : item.id,
-                            titre : 'Nouveau remboursement',
+                            titre : "Nouveau remboursement",
                             body : "Vous avez reçu un remboursement le " + $filter('date')(item.remboursement.date, 'dd/MM/yyyy') + " d'un montant de " + item.remboursement.montant + "€.",
                             icon : item.beneficiaire.avatar
                         });
+
+                        /*
+                         * Une fois la notification envoyée on change le status de celle-ci
+                         */
+                        item.notification = true;
+                    }
+
+                    /*
+                     * NOTIFICATION DE RAPPEL
+                     *
+                     * Envoi une notification si :
+                     * 1 - les notifications sont activées
+                     * 2 - la date du jour est égale ou supérieur à la date de rappel
+                     * 3 - le rappel n'a pas encore été notifié
+                     */
+                    if(Notification.isNotification() === true
+                        && new Date().getTime() >= item.dateRappel
+                        && item.rappel === false){
+
+                        /*
+                         * Envoi une notification via le service Notification
+                         */
+                        Notification.send({
+                            id : item.id,
+                            titre : "Rappel de rendez-vous",
+                            body : "Un rendez-vous arrive à échéance. Cliquez pour en savoir plus.",
+                            icon : item.beneficiaire.avatar
+                        });
+
+                        /*
+                         * Une fois la notification envoyée, on change le status de celle-ci
+                         */
+                        item.rappel = true;
                     }
 
                     /*
@@ -124,7 +159,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
             /*
              * Renvoie le max ID des données RDV
              */
-            getLastRdvId : function(){
+            getLastRdvId : function (){
 
                 /*
                  * Récupère les données RDV
@@ -143,7 +178,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                 /*
                  * Crée un tableau contenant tous les ID
                  */
-                var arrId = Object.keys(data).map(function(k){
+                var arrId = Object.keys(data).map(function (k){
 
                     return data[k].id;
                 });
@@ -151,7 +186,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                 /*
                  * Tri décroissant des ID
                  */
-                arrId.sort(function(a, b){
+                arrId.sort(function (a, b){
 
                     return b - a;
                 });
@@ -249,7 +284,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
             /*
              * Crée un nouveau RDV
              */
-            createRdv : function(obj){
+            createRdv : function (obj){
 
                 /*
                  * Récupère la liste des RDV
@@ -507,7 +542,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
 
                 return false;
             },
-
             /*
              * Ajoute le PS ou l'établissement dans les favoris
              */
@@ -527,7 +561,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                     localStorageService.set("favoris", arrData);
                 }
             },
-
             /*
              * Ajoute le PS ou l'établissement dans les favoris
              */
@@ -559,7 +592,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                     localStorageService.set("favoris", arrData);
                 }
             },
-
             /*
              * Retourne true si le PS ou l'établissement est dans les favoris
              */
