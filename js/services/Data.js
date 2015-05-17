@@ -77,6 +77,34 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                      */
 
                     /*
+                     * NOTIFICATION DE RAPPEL
+                     *
+                     * Envoi une notification si :
+                     * 1 - les notifications sont activées
+                     * 2 - la date du jour est égale ou supérieur à la date de rappel
+                     * 3 - le rappel n'a pas encore été notifié
+                     */
+                    if(Notification.isNotification() === true
+                        && new Date().getTime() >= item.dateRappel
+                        && item.rappel === false){
+
+                        /*
+                         * Envoi une notification via le service Notification
+                         */
+                        Notification.send({
+                            id : item.id,
+                            titre : "Rappel de rendez-vous",
+                            body : "Un rendez-vous arrive à échéance. Cliquez pour en savoir plus.",
+                            icon : item.beneficiaire.avatar
+                        });
+
+                        /*
+                         * Une fois la notification envoyée, on change le status de celle-ci
+                         */
+                        item.rappel = true;
+                    }
+
+                    /*
                      * NOTIFICATION DE REMBOURSEMENT
                      *
                      * Envoi une notification si :
@@ -105,34 +133,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                          * Une fois la notification envoyée on change le status de celle-ci
                          */
                         item.notification = true;
-                    }
-
-                    /*
-                     * NOTIFICATION DE RAPPEL
-                     *
-                     * Envoi une notification si :
-                     * 1 - les notifications sont activées
-                     * 2 - la date du jour est égale ou supérieur à la date de rappel
-                     * 3 - le rappel n'a pas encore été notifié
-                     */
-                    if(Notification.isNotification() === true
-                        && new Date().getTime() >= item.dateRappel
-                        && item.rappel === false){
-
-                        /*
-                         * Envoi une notification via le service Notification
-                         */
-                        Notification.send({
-                            id : item.id,
-                            titre : "Rappel de rendez-vous",
-                            body : "Un rendez-vous arrive à échéance. Cliquez pour en savoir plus.",
-                            icon : item.beneficiaire.avatar
-                        });
-
-                        /*
-                         * Une fois la notification envoyée, on change le status de celle-ci
-                         */
-                        item.rappel = true;
                     }
 
                     /*
