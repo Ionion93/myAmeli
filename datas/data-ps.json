@@ -1,0 +1,38 @@
+[
+  {
+    "numero": 750294887,
+    "nom": "Marcy",
+    "prenom": "Fry",
+    "telephone": "01 23 45 67 89",
+    "adresse": "21 rue Georges Auric, 75019 Paris",
+    "honoraire": "Honoraires sans dépassement",
+    "cv": true
+  },
+  {
+    "numero": 750245487,
+    "nom": "Cohen",
+    "prenom": "Luc",
+    "telephone": "01 45 23 12 82",
+    "adresse": "14 rue Baudelique, 75018 Paris",
+    "honoraire": "Honoraires avec dépassements maitrisés",
+    "cv": true
+  },
+  {
+    "numero": 750294287,
+    "nom": "Gardener",
+    "prenom": "Paul",
+    "telephone": "01 78 20 43 09",
+    "adresse": "21 rue Georges Auric, 75019 Paris",
+    "honoraire": "Honoraires libres",
+    "cv": true
+  },
+  {
+    "numero": 750673387,
+    "nom": "Waechter",
+    "prenom": "Alain",
+    "telephone": "01 77 32 09 89",
+    "adresse": "21 rue Georges Auric, 75019 Paris",
+    "honoraire": "Non conventionné",
+    "cv": false
+  }
+]

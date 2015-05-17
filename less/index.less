@@ -898,6 +898,45 @@ textarea{
         padding-bottom:0;
     }
 
+    .filtre_recherche_titre{
+        font-size: 10px;
+        color:@bleu;
+        padding-left: 20px;
+    }
+
+    .filtre_recherche{
+        font-size: 14px;
+        color:@gris;
+        padding-left: 20px;
+        background-color:@gris-clair;
+        width:95%;
+        border-radius:7px;
+        margin: auto;
+        padding: 10px;
+        
+        &.afficher{
+            display: block;
+        }
+
+        &.cacher{
+            display: none;
+        }
+
+        label{
+            display: block;
+            width: 150px;
+            float: left;
+        }
+
+        select{
+            width: 50%;
+            line-height:10px;
+            margin-bottom:0px;
+            padding:0px;
+            font-size:12px;
+        }
+    }
+    
     .footer{
         padding:15px;
 
@@ -906,6 +945,162 @@ textarea{
             color:#fff;
             border-color: @rose;
             .border-radius(0);
+        }
+    }
+}
+
+.nb_result{
+    padding:15px;
+    color:@vert;
+    font-weight:bold;
+}
+
+
+/* Liste des PS */
+.list-ps{
+    padding: 0;
+    width:calc(100% - 1.5%);
+    margin: auto;
+
+    li{
+        display: block;
+        margin:auto;
+        margin-bottom: 2%;
+        width: 100%;
+        float:right;
+        background-color: #fff;
+        border:solid 1px @gris;
+        .box-shadow(2px 2px 3px);
+        .transition(all 0.1s linear);
+
+        &:after{
+            .clearfix();
+        }
+
+        .header{
+            padding: 15px;
+            padding-bottom: 5px;
+            border-bottom: solid 1px @gris-clair;
+
+            .nom{
+                float: left;
+                margin: 0;
+                color:@rose;
+                vertical-align: middle;
+                line-height: 20px;
+                font-size: 16px;
+            }
+
+            .cv{
+                float: right;
+                width:10%;
+                text-align: right;
+                vertical-align: middle;
+                line-height: 32px;
+                height: 32px;
+
+                &.false{
+                    background: url(../img/cv_gris.png) no-repeat center right;
+                }
+
+                &.true{
+                    background: url(../img/cv.png) no-repeat center right;
+                }
+            }
+
+            .numero{
+                width: 10%;
+                vertical-align: middle;
+                font-size: 10px;
+                color:@bleu;
+            }
+
+            .honoraire{
+                font-size: 10px;
+            }
+
+            &:after{
+                .clearfix();
+            }
+        }
+        .content{
+            padding: 15px;
+            color:@noir;
+
+            .adresse{
+                margin-bottom: 15px;
+            }
+
+            .telephone,
+            .itineraire{
+                display: inline-block;
+                background-color:@bleu;
+                background-image: url(../img/phone-white.svg);
+                background-repeat: no-repeat;
+                background-position: 10px center;
+                background-size: 18px 18px;
+                padding: 7px 15px;
+                padding-left: 35px;
+                font-size: 15px;
+                color:#fff;
+                .border-radius(7px);
+            }
+            .itineraire{
+                background-image: url(../img/map-white.svg);
+                margin-left: 10px;
+            }
+
+            .maps{
+                margin-top: 15px;
+                background-color: @gris-clair;
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+        .actions{
+            padding: 15px 15px 15px 15px;
+            padding: 0;
+            background-color: @gris-clair;
+            border-top:solid 1px @gris;
+
+            &:after{
+                .clearfix();
+            }
+
+            .btn{
+                display: block;
+                float: left;
+                background-color: transparent;
+                border:none;
+                padding: 15px 0;
+                width: calc(100% / 2);
+                .border-radius(0);
+                .box-shadow(0 0 0);
+                .transition(background-color 0.1s linear);
+                .text-overflow(ellipsis);
+
+                &:hover{
+                    background-color:rgba(255,255,255,0.4);
+                }
+
+                &:active{
+                    .box-shadow(inset 2px 3px 3px);
+                }
+
+                &:nth-child(1){
+                    border-right: solid 1px #fff;
+                }
+
+                &:nth-child(2){
+                    border-left: solid 1px @gris;
+                    border-right: solid 1px #fff;
+                }
+
+                &:nth-child(3){
+                    border-left: solid 1px @gris;
+                }
+            }
         }
     }
 }

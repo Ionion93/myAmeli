@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "group": "Médecin",
+    "libelle": "Médecin généraliste"
+  },
+  {
+    "id": 2,
+    "group": "Dentiste",
+    "libelle": "Dentiste"
+  },
+  {
+    "id": 3,
+    "group": "Médecin",
+    "libelle": "Cardiologue"
+  },
+  {
+    "id": 4,
+    "group": "Spécialiste",
+    "libelle": "Ophtalmologiste"
+  }
+]
