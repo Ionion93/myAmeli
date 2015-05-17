@@ -17,17 +17,17 @@
     <!--
     Etat et détail du remboursement
     -->
-    <div class="remboursement {{item.etat}}">
+    <div class="remboursement {{item.remboursement.etat}}">
 
         <div class="etat">
-            <div class="{{item.etat}}"></div>
+            <div class="{{item.remboursement.etat}}"></div>
         </div>
 
-        <div data-ng-if="item.etat === true" class="date">{{item.remboursement.date| date:'dd/MM/yyyy'}}</div>
+        <div data-ng-if="item.remboursement.etat === true" class="date">{{item.remboursement.date| date:'dd/MM/yyyy'}}</div>
 
-        <div data-ng-if="item.etat === true" class="montant">{{item.remboursement.montant| currency:'':2}} €</div>
+        <div data-ng-if="item.remboursement.etat === true" class="montant">{{item.remboursement.montant| currency:'':2}} €</div>
 
-        <div data-ng-if="item.etat === false" class="message">
+        <div data-ng-if="item.remboursement.etat === false" class="message">
             {{item.date + item.delaiRemboursement < dateLimite ? "Attendu le" : "Prévu le"}} {{item.date + item.delaiRemboursement| date:'dd/MM/yyyy'}}
         </div>
 
@@ -40,18 +40,18 @@
 
     <div class="content">
 
-        <h4 class="titre">{{item.titre}}</h4>
+        <h4 class="titre">{{item.ps.titre}}</h4>
 
-        <div class="numero">{{item.numero}}</div>
+        <div class="numero">{{item.ps.numero}}</div>
 
-        <address class="adresse">{{item.adresse}}</address>
+        <address class="adresse">{{item.ps.adresse}}</address>
 
-        <a href="tel:{{item.telephone}}" class="telephone">{{item.telephone}}</a>
+        <a href="tel:{{item.ps.telephone}}" class="telephone">{{item.ps.telephone}}</a>
 
         <!--
         Redirige vers Google Maps. Lance l'application si installée sinon le navigateur.
         -->
-        <a data-ng-href="https://www.google.fr/maps/dir/ma+position/{{item.adresse}}" target="_blank" class="itineraire">Itinéraire</a>
+        <a data-ng-href="https://www.google.fr/maps/dir/ma+position/{{item.ps.adresse}}" target="_blank" class="itineraire">Itinéraire</a>
 
         <blockquote class="notes">
             <h3>Notes</h3>

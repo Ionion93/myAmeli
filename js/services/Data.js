@@ -5,17 +5,6 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
     function ($resource, $filter, $routeParams, $log, localStorageService, Notification){
 
         /*
-         * @defaultDelaiRemboursement : délai de remboursement par défaut
-         * + 5 jours
-         */
-        var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 5;
-
-        /*
-         * @defaultMontantPaye : montant réglé au PS par défaut
-         */
-        var defaultMontantPaye = 50;
-
-        /*
          * @urlDataRdv : URL des données RDV
          */
         var urlDataRdv = './datas/data-rdv.json';

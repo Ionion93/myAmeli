@@ -63,7 +63,7 @@ Popup personalisable
                     class="heure">
                     <option
                         data-ng-repeat="heure in heures"
-                        data-ng-selected="heure == (item.date | date:'hh')"
+                        data-ng-selected="heure == (item.date | date:'HH')"
                         data-ng-value="{{heure}}">{{heure| formatZero:2}}</option>
                 </select>
                 :

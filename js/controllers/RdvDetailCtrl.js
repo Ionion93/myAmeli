@@ -158,7 +158,7 @@ Controllers.controller('RdvDetailCtrl', ['$scope', '$log', '$window', '$routePar
             $scope.dateJour = $filter('date')($scope.item.date, "dd");
             $scope.dateMois = $filter('date')($scope.item.date, "MM");
             $scope.dateAnnee = $filter('date')($scope.item.date, "yyyy");
-            $scope.dateHeure = $filter('date')($scope.item.date, "hh");
+            $scope.dateHeure = $filter('date')($scope.item.date, "HH");
             $scope.dateMinute = $filter('date')($scope.item.date, "mm");
 
             $scope.onChangeDate = function (value, type){

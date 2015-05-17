@@ -159,7 +159,7 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
             /*
              * @notes : notes saisies par l'utilisateur
              */
-            var userNotes = null;
+            var userNotes = "Apporter les analyses du laboratoire";
 
             /*
              * @defaultDelaiRemboursement : délai de remboursement par défaut
@@ -173,6 +173,11 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
             var defaultDateRemboursement = null;
 
             /*
+             * @defaultMontantRemboursement : montant total du remboursement
+             */
+            var defaultMontantRemboursement = null;
+
+            /*
              * @defaultMontantPaye : montant réglé au PS par défaut
              */
             var defaultMontantPaye = null;
@@ -183,7 +188,7 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
             var defaultEtat = false;
 
             /*
-             * @maxId : max ID des données RDV
+             * @defaultRdvId : max ID des données RDV
              */
             var defaultRdvId = Data.getLastRdvId() + 1;
 
@@ -218,18 +223,13 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
                     telephone : arrPs.telephone,
                     adresse : arrPs.adresse
                 },
-                titre : arrPs.titre,
-                numero : arrPs.numero,
-                telephone : arrPs.telephone,
-                adresse : arrPs.adresse,
                 notes : userNotes,
                 etat : defaultEtat,
                 delaiRemboursement : defaultDelaiRemboursement,
                 montantPaye : defaultMontantPaye,
                 remboursement : {
                     etat : defaultEtat,
-                    delaiRemboursement : defaultDelaiRemboursement,
-                    montant : defaultMontantPaye,
+                    montant : defaultMontantRemboursement,
                     date : defaultDateRemboursement
                 },
                 archive : false,
