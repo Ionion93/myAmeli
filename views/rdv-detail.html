@@ -48,7 +48,15 @@
         <div
             data-ng-if="item.remboursement.etat === false"
             class="message">
-            {{item.date + item.delaiRemboursement < dateLimite ? "Attendu le" : "Prévu le"}} {{item.date + item.delaiRemboursement| date:'dd/MM/yyyy'}}
+
+            <span data-ng-if="item.date + item.delaiRemboursement < dateLimite">
+                Délai prévisionnel dépassé
+            </span>
+
+            <span data-ng-if="item.date + item.delaiRemboursement >= dateLimite">
+                Prévu le {{item.date + item.delaiRemboursement| date:'dd/MM/yyyy'}}
+            </span>
+            
         </div>
 
         <!--
