@@ -146,7 +146,7 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
             }
             else
             {
-                $scope.items[$index].favori = "img/star-gey.svg";
+                $scope.items[$index].favori = "img/star-grey.svg";
 
                 Data.deleteFavori($scope.items[$index].numero);
             }
