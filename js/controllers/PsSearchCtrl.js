@@ -1,8 +1,8 @@
 /*
  * SearchCtrl : permet de rechercher, filtrer et choisir un PS ou un établissement
  */
-Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
-    function ($scope, $http, Data){
+Controllers.controller('PsSearchCtrl', ['$scope', '$http', '$log', 'Data',
+    function ($scope, $http, $log, Data){
 
         /*
          * A FAIRE :
@@ -22,7 +22,12 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
 
             $scope.optionsProfession = data;
 
+            /*
+             * Selection par défaut du premier item de l'objet
+             */
+            $scope.profession = $scope.optionsProfession[0].id;
         });
+
 
         //Sélection par défaut
         $scope.type = "Professionnel de sante";
