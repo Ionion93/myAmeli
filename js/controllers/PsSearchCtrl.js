@@ -69,9 +69,9 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
 
                     //On regarde si le PS ou l'établissement fait partie des favoris
                     if (Data.isFavori(item.numero))
-                        $favori = "img/favori_oui.png";
+                        $favori = "img/star-yellow.svg";
                     else
-                        $favori = "img/favori_non.png";
+                        $favori = "img/star-grey.svg";
 
                     /*
                      *  @nom :
@@ -134,9 +134,9 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
          */
         $scope.ajouterFavori = function ($index){
 
-            if ($scope.items[$index].favori == "img/favori_non.png")
+            if ($scope.items[$index].favori == "img/star-grey.svg")
             {
-                $scope.items[$index].favori = "img/favori_oui.png";
+                $scope.items[$index].favori = "img/star-yellow.svg";
 
                 Data.setFavori({
                     numero : $scope.items[$index].numero,
@@ -146,7 +146,7 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', 'Data',
             }
             else
             {
-                $scope.items[$index].favori = "img/favori_non.png";
+                $scope.items[$index].favori = "img/star-gey.svg";
 
                 Data.deleteFavori($scope.items[$index].numero);
             }

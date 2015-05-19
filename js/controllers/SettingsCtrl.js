@@ -46,7 +46,7 @@ Controllers.controller('SettingsCtrl', ['$scope', '$window', '$filter', 'Data', 
             /*
              * @dateRdv : date du RDV saisie par l'utilisateur
              */
-            var dateRdv = new Date().getTime() - (1000 * 60 * 60 * 24 * 5);
+            var dateRdv = new Date().getTime() - (1000 * 60 * 60 * 24 * 7);
 
             /*
              * @dateRdvJour : convertit la date en timestamp sans l'heure
@@ -65,9 +65,9 @@ Controllers.controller('SettingsCtrl', ['$scope', '$window', '$filter', 'Data', 
 
             /*
              * @defaultDelaiRemboursement : délai de remboursement par défaut
-             * + 5 jours
+             * + 7 jours
              */
-            var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 5;
+            var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 7;
 
             /*
              * @dateRemboursement : date de remboursement par défaut

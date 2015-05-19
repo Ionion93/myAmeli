@@ -163,9 +163,9 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
 
             /*
              * @defaultDelaiRemboursement : délai de remboursement par défaut
-             * + 5 jours
+             * + 7 jours
              */
-            var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 5;
+            var defaultDelaiRemboursement = 1000 * 60 * 60 * 24 * 7;
 
             /*
              * @dateRemboursement : date de remboursement par défaut

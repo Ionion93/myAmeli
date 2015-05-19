@@ -28,7 +28,7 @@
             {{filtre_recherche_titre}}
         </span>
         <div data-ng-class="classe_filtre">
-            
+
             <label for="select_cv">Carte Vitale</label>
             <select id="select_cv" data-ng-model="cv">
                 <option>Indifférent</option>
@@ -50,11 +50,11 @@
                 <option>Indifférent</option>
                 <option>Homme</option>
                 <option>Femme</option>
-            </select>            
-            
+            </select>
+
         </div>
-        
-        
+
+
         <footer class="footer">
             <button type="submit" data-ng-click="searchPs()" class="btn large">
                 Rechercher
@@ -62,7 +62,7 @@
         </footer>
 
     </form>
-    
+
 </div>
 
 <div class="nb_result">{{nb_result}}</div>
@@ -74,7 +74,7 @@
         <div class="header">
 
             <div>
-                <h4 class="nom">{{item.nom}} {{item.prenom}}</h4>               
+                <h4 class="nom">{{item.nom}} {{item.prenom}}</h4>
                 <div class="cv {{item.cv}}"></div>
             </div>
 
@@ -101,9 +101,9 @@
             -->
             <map class="maps" center="{{item.adresse}}" zoom="14" disable-default-u-i="true">
               <marker position="{{item.adresse}}" title="Ici" visible="true"></marker>
-            </map>                
+            </map>
         </div>
-    
+
         <footer class="actions">
 
             <button class="btn" data-ng-click="ajouterFavori($index)">
@@ -111,11 +111,11 @@
             </button>
 
             <button class="btn" data-ng-click="planifierRdv()">
-                <embed src="img/rdv.png" type="image/png" id="btn-2" class="icon" />
+                <embed src="img/calendar-blue.svg" type="image/png" id="btn-2" class="icon" />
             </button>
 
         </footer>
-        
+
     </li>
-    
+
 </ul>
