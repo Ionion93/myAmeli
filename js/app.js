@@ -1,7 +1,7 @@
 /*
  * Application : définit l'application et charge les modules d'AngularJS qui seront utilisés
  */
-var app = angular.module('app', ['ngRoute', 'ngAnimate', 'LocalStorageModule', 'Controllers', 'Services', 'Filters', 'angular.filter', 'ngMap']);
+var app = angular.module('app', ['ngRoute', 'ngAnimate', 'LocalStorageModule', 'Controllers', 'Services', 'Filters', 'angular.filter', 'ngMap', 'angularSoap']);
 
 /*
  * Controllers : gèrent les vues.

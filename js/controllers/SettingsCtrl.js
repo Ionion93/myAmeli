@@ -1,8 +1,8 @@
 /*
  * SettingsCtrl : permet de paramétrer l'application (notifications, utilisateurs, avatars)
  */
-Controllers.controller('SettingsCtrl', ['$scope', '$window', '$filter', 'Data', 'Notification',
-    function ($scope, $window, $filter, Data, Notification){
+Controllers.controller('SettingsCtrl', ['$scope', '$window', '$filter', 'Data', 'Notification', 'Soap',
+    function ($scope, $window, $filter, Data, Notification, Soap){
 
         /*
          * Notifications : activer/désactiver
