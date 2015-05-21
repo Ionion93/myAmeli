@@ -44,6 +44,10 @@ app.config(['$routeProvider', function ($routeProvider){
                 templateUrl : 'views/rdv-create.html',
                 controller : 'RdvCreateCtrl'
             }).
+            when('/rdv-create/:numero', {
+                templateUrl : 'views/rdv-create.html',
+                controller : 'RdvCreateCtrl'
+            }).                    
             when('/ps-search', {
                 templateUrl : 'views/ps-search.html',
                 controller : 'PsSearchCtrl'

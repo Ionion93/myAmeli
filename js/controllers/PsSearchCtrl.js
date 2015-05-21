@@ -1,18 +1,8 @@
 /*
  * SearchCtrl : permet de rechercher, filtrer et choisir un PS ou un établissement
  */
-Controllers.controller('PsSearchCtrl', ['$scope', '$http', '$log', 'Data',
-    function ($scope, $http, $log, Data){
-
-        /*
-         * A FAIRE :
-         * 1 - appeler le formulaire de recherche,
-         * 1 a - afficher d'emblée les PS/établissements présents dans l'agenda (ex : dernières recherches),
-         * 2 - lister les résultats sous le formulaire,
-         * 2 a - filtrer les résultats obtenus (ex : avec CV, homme/femme),
-         * 3 - renvoyer vers le formulaire qui permet de créer un nouvel évènement
-         */
-
+Controllers.controller('PsSearchCtrl', ['$scope', '$http', '$window', '$log', 'Data', 
+    function ($scope, $http, $window, $log, Data){
 
         /*
          * Récupère la liste des professions
@@ -161,9 +151,12 @@ Controllers.controller('PsSearchCtrl', ['$scope', '$http', '$log', 'Data',
         /*
          * planifierRdv() : redirige vers le formulaire de création d'un RDV.
          */
-        $scope.planifierRdv = function (){
+        $scope.planifierRdv = function ($index){
 
-            console.log("planifierRdv", $scope.item);
+            /*
+             * Redirige vers la vue rdv-create
+             */
+            $window.location.hash = '#/rdv-create/' + $scope.items[$index].numero;
         };
 
     }]);

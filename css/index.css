@@ -995,7 +995,7 @@ textarea:focus {
 }
 .list-ps li .header .cv {
   float: right;
-  width: 10%;
+  width: 80px;
   text-align: right;
   vertical-align: middle;
   line-height: 32px;
@@ -1010,7 +1010,7 @@ textarea:focus {
 .list-ps li .header .numero {
   width: 10%;
   vertical-align: middle;
-  font-size: 10px;
+  font-size: 11px;
   color: deepskyblue;
 }
 .list-ps li .header .honoraire {
