@@ -86,6 +86,7 @@ Services.factory('Data', ['$resource', '$filter', '$routeParams', '$log', 'local
                      */
                     if(Notification.isNotification() === true
                         && new Date().getTime() >= item.dateRappel
+                        && item.dateRappel !== null
                         && item.rappel === false){
 
                         /*

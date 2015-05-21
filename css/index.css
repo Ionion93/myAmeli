@@ -665,6 +665,7 @@ textarea:focus {
 .create-rdv .content .pour,
 .create-rdv .content .avec,
 .create-rdv .content .date,
+.create-rdv .content .notes,
 .create-rdv .content .rappel {
   background-color: #fff;
   margin-bottom: 20px;
@@ -681,6 +682,7 @@ textarea:focus {
 .create-rdv .content .pour:after,
 .create-rdv .content .avec:after,
 .create-rdv .content .date:after,
+.create-rdv .content .notes:after,
 .create-rdv .content .rappel:after {
   display: block;
   float: none;
@@ -692,6 +694,7 @@ textarea:focus {
 .create-rdv .content .pour .header,
 .create-rdv .content .avec .header,
 .create-rdv .content .date .header,
+.create-rdv .content .notes .header,
 .create-rdv .content .rappel .header {
   text-align: left;
   padding: 10px 0px;
@@ -700,6 +703,7 @@ textarea:focus {
 .create-rdv .content .pour .beneficiaires,
 .create-rdv .content .avec .beneficiaires,
 .create-rdv .content .date .beneficiaires,
+.create-rdv .content .notes .beneficiaires,
 .create-rdv .content .rappel .beneficiaires {
   padding: 0;
   margin: 0;
@@ -708,6 +712,7 @@ textarea:focus {
 .create-rdv .content .pour .beneficiaires .avatar,
 .create-rdv .content .avec .beneficiaires .avatar,
 .create-rdv .content .date .beneficiaires .avatar,
+.create-rdv .content .notes .beneficiaires .avatar,
 .create-rdv .content .rappel .beneficiaires .avatar {
   display: inline-block;
   background-color: whitesmoke;
@@ -732,6 +737,7 @@ textarea:focus {
 .create-rdv .content .pour .beneficiaires .avatar:hover,
 .create-rdv .content .avec .beneficiaires .avatar:hover,
 .create-rdv .content .date .beneficiaires .avatar:hover,
+.create-rdv .content .notes .beneficiaires .avatar:hover,
 .create-rdv .content .rappel .beneficiaires .avatar:hover {
   transform: scale(1.2) rotateY(180deg);
   -webkit-transform: scale(1.2) rotateY(180deg);
@@ -740,10 +746,12 @@ textarea:focus {
 .create-rdv .content .pour .beneficiaires .avatar:active,
 .create-rdv .content .avec .beneficiaires .avatar:active,
 .create-rdv .content .date .beneficiaires .avatar:active,
+.create-rdv .content .notes .beneficiaires .avatar:active,
 .create-rdv .content .rappel .beneficiaires .avatar:active,
 .create-rdv .content .pour .beneficiaires .avatar.active,
 .create-rdv .content .avec .beneficiaires .avatar.active,
 .create-rdv .content .date .beneficiaires .avatar.active,
+.create-rdv .content .notes .beneficiaires .avatar.active,
 .create-rdv .content .rappel .beneficiaires .avatar.active {
   border-color: #b8dc70;
   transform: scale(1.2) rotateY(180deg);
@@ -753,6 +761,7 @@ textarea:focus {
 .create-rdv .content .pour label,
 .create-rdv .content .avec label,
 .create-rdv .content .date label,
+.create-rdv .content .notes label,
 .create-rdv .content .rappel label {
   display: block;
   width: 48%;
@@ -770,6 +779,7 @@ textarea:focus {
   .create-rdv .content .pour label,
   .create-rdv .content .avec label,
   .create-rdv .content .date label,
+  .create-rdv .content .notes label,
   .create-rdv .content .rappel label {
     float: none;
     width: auto;
@@ -780,6 +790,7 @@ textarea:focus {
 .create-rdv .content .pour label select,
 .create-rdv .content .avec label select,
 .create-rdv .content .date label select,
+.create-rdv .content .notes label select,
 .create-rdv .content .rappel label select {
   display: inline-block;
   float: none;
@@ -788,6 +799,7 @@ textarea:focus {
 .create-rdv .content .pour .delais,
 .create-rdv .content .avec .delais,
 .create-rdv .content .date .delais,
+.create-rdv .content .notes .delais,
 .create-rdv .content .rappel .delais {
   padding: 0;
   margin: 0;
@@ -796,6 +808,7 @@ textarea:focus {
 .create-rdv .content .pour .delais li,
 .create-rdv .content .avec .delais li,
 .create-rdv .content .date .delais li,
+.create-rdv .content .notes .delais li,
 .create-rdv .content .rappel .delais li {
   display: inline-block;
   width: 45%;
@@ -812,6 +825,7 @@ textarea:focus {
 .create-rdv .content .pour .delais li a,
 .create-rdv .content .avec .delais li a,
 .create-rdv .content .date .delais li a,
+.create-rdv .content .notes .delais li a,
 .create-rdv .content .rappel .delais li a {
   display: block;
   color: #a9a9a9;
@@ -820,28 +834,34 @@ textarea:focus {
 .create-rdv .content .pour .delais li:hover,
 .create-rdv .content .avec .delais li:hover,
 .create-rdv .content .date .delais li:hover,
+.create-rdv .content .notes .delais li:hover,
 .create-rdv .content .rappel .delais li:hover,
 .create-rdv .content .pour .delais li:active,
 .create-rdv .content .avec .delais li:active,
 .create-rdv .content .date .delais li:active,
+.create-rdv .content .notes .delais li:active,
 .create-rdv .content .rappel .delais li:active,
 .create-rdv .content .pour .delais li.active,
 .create-rdv .content .avec .delais li.active,
 .create-rdv .content .date .delais li.active,
+.create-rdv .content .notes .delais li.active,
 .create-rdv .content .rappel .delais li.active {
   background-color: #b8dc70;
 }
 .create-rdv .content .pour .delais li:hover a,
 .create-rdv .content .avec .delais li:hover a,
 .create-rdv .content .date .delais li:hover a,
+.create-rdv .content .notes .delais li:hover a,
 .create-rdv .content .rappel .delais li:hover a,
 .create-rdv .content .pour .delais li:active a,
 .create-rdv .content .avec .delais li:active a,
 .create-rdv .content .date .delais li:active a,
+.create-rdv .content .notes .delais li:active a,
 .create-rdv .content .rappel .delais li:active a,
 .create-rdv .content .pour .delais li.active a,
 .create-rdv .content .avec .delais li.active a,
 .create-rdv .content .date .delais li.active a,
+.create-rdv .content .notes .delais li.active a,
 .create-rdv .content .rappel .delais li.active a {
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);

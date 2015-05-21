@@ -114,12 +114,20 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
                 valeur : 1000 * 60 * 60 * 24
             },
             {
+                titre : "4 heures avant",
+                valeur : 1000 * 60 * 60 * 4
+            },
+            {
                 titre : "1 heure avant",
                 valeur : 1000 * 60 * 60
             },
             {
                 titre : "30 min avant",
                 valeur : 1000 * 60 * 30
+            },
+            {
+                titre : "Aucun rappel",
+                valeur : null
             }
         ];
 
@@ -154,7 +162,7 @@ Controllers.controller('RdvCreateCtrl', ['$scope', '$window', '$log', '$filter',
             /*
              * @dateRdvRappel : date de rappel du RDV
              */
-            var dateRdvRappel = dateRdv + $scope.selectedDelai;
+            var dateRdvRappel = $scope.selectedDelai !==null ? dateRdv + $scope.selectedDelai : null;
 
             /*
              * @notes : notes saisies par l'utilisateur
